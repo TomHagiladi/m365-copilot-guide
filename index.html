@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Microsoft 365 Copilot Training Guide for Academic Researchers — prompts, tips, and practical scenarios for Word, Excel, PowerPoint, Outlook, Teams, and AI Agents.">
+<title>Microsoft 365 Copilot — Training Guide for Academic Researchers</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --primary: #4a7c0f;
+    --primary-dark: #365c09;
+    --primary-light: #e8f5d6;
+    --accent: #cc2030;
+    --accent-light: #fde8eb;
+    --success: #2d7a2d;
+    --success-light: #dff6dd;
+    --warning: #d49600;
+    --warning-light: #fff4ce;
+    --bg: #f8faf6;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-secondary: #64748b;
+    --border: #dfe5da;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    --radius: 12px;
+    --focus-color: #cc2030;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    z-index: 200;
+    text-decoration: none;
+    border-radius: 0 0 8px 0;
+    font-size: 0.95em;
+  }
+  .skip-link:focus { top: 0; outline: 3px solid var(--primary); outline-offset: 2px; }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible,
+  input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 3px solid var(--focus-color);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #4a7c0f 0%, #365c09 50%, #2a4807 100%);
+    color: white; padding: 40px 20px 45px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-diamond {
+    position: absolute; width: 18px; height: 18px;
+    border: 2px solid rgba(204, 32, 48, 0.45); transform: rotate(45deg); pointer-events: none;
+  }
+  .hero-diamond:nth-child(1) { top: 15%; left: 8%; width: 14px; height: 14px; }
+  .hero-diamond:nth-child(2) { top: 25%; right: 12%; width: 20px; height: 20px; }
+  .hero-diamond:nth-child(3) { bottom: 20%; left: 15%; }
+  .hero-diamond:nth-child(4) { bottom: 30%; right: 8%; width: 12px; height: 12px; }
+  .hero-diamond:nth-child(5) { top: 45%; left: 5%; width: 10px; height: 10px; }
+
+  .hero-logo {
+    max-width: 220px; height: auto; margin-bottom: 18px; position: relative;
+    background: white; padding: 12px 18px; border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  }
+  .hero h1 { font-size: 2.5em; font-weight: 800; margin-bottom: 10px; position: relative; }
+  .hero .subtitle { font-size: 1.2em; font-weight: 300; opacity: 0.92; margin-bottom: 8px; position: relative; }
+  .hero .meta { font-size: 0.95em; opacity: 0.75; position: relative; }
+
+  .lang-toggle {
+    position: absolute; top: 16px; right: 20px; z-index: 10;
+    display: flex; gap: 0; border-radius: 8px; overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  [dir="rtl"] .lang-toggle { right: auto; left: 20px; }
+  .lang-btn {
+    padding: 6px 14px; background: transparent; color: rgba(255,255,255,0.7);
+    border: none; font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 0.85em; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+  .lang-btn.active { background: rgba(255,255,255,0.2); color: #fff; }
+  .lang-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+  .nav-container {
+    background: var(--card-bg); border-bottom: 1px solid var(--border);
+    padding: 14px 20px; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap;
+    gap: 6px; justify-content: center;
+  }
+  .nav-btn {
+    padding: 7px 14px; border: 1px solid var(--border); border-radius: 20px;
+    background: white; color: var(--text-secondary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 0.85em; font-weight: 500; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  }
+  .nav-btn:hover, .nav-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+
+  .section { margin-bottom: 40px; scroll-margin-top: 80px; }
+  .section-header {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+    padding-bottom: 12px; border-bottom: 2px solid var(--primary-light);
+  }
+  .section-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5em; flex-shrink: 0;
+  }
+  .section-header h2 { font-size: 1.6em; font-weight: 700; color: var(--text); }
+  .section-desc { color: var(--text-secondary); margin-bottom: 20px; font-size: 1.02em; line-height: 1.8; }
+
+  .card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 24px; margin-bottom: 16px; box-shadow: var(--shadow); transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: var(--shadow-md); }
+  .card h3 { font-size: 1.15em; font-weight: 600; margin-bottom: 10px; color: var(--primary-dark); }
+  .card p { color: var(--text-secondary); margin-bottom: 12px; line-height: 1.7; }
+
+  .prompt-block {
+    background: #f4f8ef; border: 1px solid var(--border);
+    border-left: 4px solid var(--primary); border-radius: 8px;
+    padding: 16px 18px; margin-bottom: 12px; position: relative;
+    cursor: pointer; transition: all 0.2s;
+  }
+  [dir="rtl"] .prompt-block { border-left: 1px solid var(--border); border-right: 4px solid var(--primary); }
+  .prompt-block:hover { background: #eaf1e2; border-left-color: var(--accent); }
+  [dir="rtl"] .prompt-block:hover { border-left-color: var(--border); border-right-color: var(--accent); }
+  .prompt-block .prompt-label {
+    font-size: 0.8em; font-weight: 600; color: var(--primary);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
+  }
+  .prompt-block .prompt-text { font-size: 0.95em; color: var(--text); line-height: 1.6; }
+  .copy-btn {
+    position: absolute; top: 12px; right: 12px; background: var(--primary);
+    color: white; border: none; border-radius: 6px; padding: 5px 12px;
+    font-size: 0.78em; font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 500; cursor: pointer; opacity: 0; transition: opacity 0.2s;
+  }
+  [dir="rtl"] .copy-btn { right: auto; left: 12px; }
+  .prompt-block:hover .copy-btn { opacity: 1; }
+  .copy-btn.copied { background: var(--success); opacity: 1; }
+
+  .feature-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px; margin-bottom: 20px;
+  }
+  .feature-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow);
+  }
+  .feature-card h4 { font-weight: 600; margin-bottom: 8px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+
+  .tip-box {
+    background: var(--success-light); border: 1px solid #a3d9a3; border-radius: 10px;
+    padding: 16px 20px; margin: 16px 0; display: flex; gap: 12px; align-items: flex-start;
+  }
+  .tip-box .tip-icon { font-size: 1.3em; flex-shrink: 0; margin-top: 2px; }
+  .tip-box p { font-size: 0.93em; color: #1a5c1a; line-height: 1.6; }
+
+  .warning-box {
+    background: var(--warning-light); border: 1px solid #f0d060; border-radius: 10px;
+    padding: 16px 20px; margin: 16px 0; display: flex; gap: 12px; align-items: flex-start;
+  }
+  .warning-box .tip-icon { font-size: 1.3em; flex-shrink: 0; margin-top: 2px; }
+  .warning-box p { font-size: 0.93em; color: #7a5d00; line-height: 1.6; }
+
+  .info-box {
+    background: var(--primary-light); border: 1px solid #b0cfb0; border-radius: 10px;
+    padding: 16px 20px; margin: 16px 0; display: flex; gap: 12px; align-items: flex-start;
+  }
+  .info-box .tip-icon { font-size: 1.3em; flex-shrink: 0; margin-top: 2px; }
+  .info-box p { font-size: 0.93em; color: #1a4a1a; line-height: 1.6; }
+
+  .tag {
+    display: inline-block; padding: 3px 10px; border-radius: 12px;
+    font-size: 0.78em; font-weight: 500; margin-right: 6px; margin-bottom: 4px;
+  }
+  [dir="rtl"] .tag { margin-right: 0; margin-left: 6px; }
+  .tag-word { background: #dbeafe; color: #1e40af; }
+  .tag-excel { background: #dcfce7; color: #166534; }
+  .tag-ppt { background: #fee2e2; color: #991b1b; }
+  .tag-outlook { background: #fef3c7; color: #92400e; }
+  .tag-teams { background: #e0e7ff; color: #3730a3; }
+  .tag-chat { background: #f3e8ff; color: #6b21a8; }
+  .tag-new { background: #fce7f3; color: #9d174d; }
+
+  .formula-box {
+    background: linear-gradient(135deg, #f8faf6, #f0f5e8);
+    border: 2px solid var(--accent); border-radius: 14px;
+    padding: 28px; margin: 20px 0; text-align: center;
+  }
+  .formula-box h3 { color: var(--accent); margin-bottom: 16px; font-size: 1.2em; }
+  .formula-items {
+    display: flex; justify-content: center; align-items: center;
+    gap: 12px; flex-wrap: wrap; font-size: 1.05em;
+  }
+  .formula-item {
+    background: white; padding: 10px 18px; border-radius: 10px;
+    border: 1px solid var(--border); font-weight: 600; box-shadow: var(--shadow);
+  }
+  .formula-plus { color: var(--accent); font-weight: 700; font-size: 1.3em; }
+
+  .collapsible-header {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 20px; cursor: pointer; display: flex; justify-content: space-between;
+    align-items: center; margin-bottom: 2px; box-shadow: var(--shadow); transition: background 0.2s;
+  }
+  .collapsible-header:hover { background: #f4f8ef; }
+  .collapsible-header h3 { font-size: 1.05em; font-weight: 600; }
+  .collapsible-arrow { transition: transform 0.3s; font-size: 0.9em; color: var(--text-secondary); }
+  .collapsible-header[aria-expanded="true"] .collapsible-arrow { transform: rotate(180deg); }
+  .collapsible-content {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease; padding: 0 20px;
+  }
+  .collapsible-content[aria-hidden="false"] {
+    max-height: 5000px; padding: 16px 20px; border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 var(--radius) var(--radius); background: var(--card-bg); margin-bottom: 12px;
+  }
+
+  .table-scroll-wrapper {
+    width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    margin: 1.5rem 0; border-radius: 8px;
+  }
+  .use-case-table { width: 100%; border-collapse: collapse; font-size: 0.93em; min-width: 600px; }
+  .use-case-table th {
+    background: var(--primary); color: white; padding: 12px 16px;
+    text-align: left; font-weight: 600;
+  }
+  [dir="rtl"] .use-case-table th { text-align: right; }
+  .use-case-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  .use-case-table tr:nth-child(even) { background: #f8faf6; }
+  .use-case-table tr:hover { background: var(--primary-light); }
+
+  .site-footer {
+    background: #1a2e0a; color: #c8d8b8; padding: 40px 20px 30px;
+    margin-top: 40px; font-size: 0.9em; line-height: 1.7;
+  }
+  .footer-inner { max-width: 900px; margin: 0 auto; }
+  .footer-credit {
+    text-align: center; margin-bottom: 30px; padding-bottom: 24px;
+    border-bottom: 1px solid #2d4a18;
+  }
+  .footer-credit p { margin-bottom: 4px; }
+  .footer-credit a { color: #a5d67a; text-decoration: none; }
+  .footer-credit a:hover { text-decoration: underline; }
+  .footer-section { margin-bottom: 24px; }
+  .footer-section h3 { color: #e0ecd0; font-size: 1.05em; margin-bottom: 10px; font-weight: 600; }
+  .footer-section p { color: #a8b898; line-height: 1.7; margin-bottom: 8px; }
+  .footer-section a { color: #a5d67a; text-decoration: none; }
+  .footer-section a:hover { text-decoration: underline; }
+  .accessibility-statement {
+    background: #243a12; border: 1px solid #2d4a18; border-radius: 8px;
+    padding: 1.5rem 2rem; margin-top: 2rem;
+  }
+
+  .back-to-top {
+    position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px;
+    border-radius: 50%; background: var(--primary); color: white; border: none;
+    font-size: 1.2em; cursor: pointer; box-shadow: var(--shadow-md);
+    opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 50;
+    display: flex; align-items: center; justify-content: center;
+  }
+  [dir="rtl"] .back-to-top { right: auto; left: 24px; }
+  .back-to-top.visible { opacity: 1; visibility: visible; }
+  .back-to-top:hover { background: var(--primary-dark); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important; transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @media (max-width: 1024px) { .hero h1 { font-size: 2.1em; } }
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 1.7em; } .hero { padding: 35px 16px; }
+    .hero-logo { max-width: 170px; } .feature-grid { grid-template-columns: 1fr; }
+    .formula-items { flex-direction: column; } .nav-inner { gap: 4px; }
+    .nav-btn { font-size: 0.78em; padding: 5px 10px; }
+    .lang-toggle { top: 10px; right: 10px; }
+    [dir="rtl"] .lang-toggle { right: auto; left: 10px; }
+    .site-footer { padding: 30px 16px 24px; }
+  }
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.4em; } .hero .subtitle { font-size: 1em; }
+    .hero-logo { max-width: 140px; } .section-header h2 { font-size: 1.25em; }
+    .container { padding: 20px 14px; } .hero-diamond { display: none; }
+  }
+  @media print {
+    .nav-container, .lang-toggle, .back-to-top, .copy-btn { display: none; }
+    .hero { padding: 30px 20px; } .prompt-block { break-inside: avoid; }
+    .card { break-inside: avoid; } .site-footer { background: #fff; color: #333; }
+  }
+
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link" data-i18n="skip-link">Skip to main content</a>
+
+<header class="hero">
+  <div class="hero-diamond" aria-hidden="true"></div>
+  <div class="hero-diamond" aria-hidden="true"></div>
+  <div class="hero-diamond" aria-hidden="true"></div>
+  <div class="hero-diamond" aria-hidden="true"></div>
+  <div class="hero-diamond" aria-hidden="true"></div>
+
+  <div class="lang-toggle" role="group" aria-label="Language selector">
+    <button class="lang-btn active" id="btn-en" aria-pressed="true">EN</button>
+    <button class="lang-btn" id="btn-he" aria-pressed="false">HE</button>
+  </div>
+
+  <img src="logo.png" alt="Tom Hagiladi — Empowering through AI" class="hero-logo">
+  <h1>Microsoft 365 Copilot</h1>
+  <div class="subtitle" data-i18n="hero-subtitle">Training Companion Guide for Academic Researchers</div>
+  <div class="meta" data-i18n="hero-meta">Live Seminar | March 2026</div>
+</header>
+
+<nav class="nav-container" aria-label="Main navigation">
+  <div class="nav-inner" id="nav-inner">
+    <button class="nav-btn" data-target="intro" data-i18n="nav-intro">Introduction</button>
+    <button class="nav-btn" data-target="prompting" data-i18n="nav-prompting">Prompt Craft</button>
+    <button class="nav-btn" data-target="chat" data-i18n="nav-chat">Copilot Chat</button>
+    <button class="nav-btn" data-target="word" data-i18n="nav-word">Word</button>
+    <button class="nav-btn" data-target="excel" data-i18n="nav-excel">Excel</button>
+    <button class="nav-btn" data-target="ppt" data-i18n="nav-ppt">PowerPoint</button>
+    <button class="nav-btn" data-target="outlook" data-i18n="nav-outlook">Outlook</button>
+    <button class="nav-btn" data-target="teams" data-i18n="nav-teams">Teams</button>
+    <button class="nav-btn" data-target="notebooks" data-i18n="nav-notebooks">Notebooks &amp; Pages</button>
+    <button class="nav-btn" data-target="agents" data-i18n="nav-agents">Researcher &amp; Analyst</button>
+    <button class="nav-btn" data-target="usecases" data-i18n="nav-usecases">Research Scenarios</button>
+    <button class="nav-btn" data-target="promptlib" data-i18n="nav-promptlib">Prompt Library</button>
+  </div>
+</nav>
+
+<main id="main-content" class="container">
+
+<section class="section" id="intro" aria-labelledby="intro-heading">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--primary-light);color:var(--primary);" aria-hidden="true">&#x1F680;</div>
+    <h2 id="intro-heading" data-i18n="intro-title">What Is Microsoft 365 Copilot?</h2>
+  </div>
+  <div class="section-desc" data-i18n="intro-desc">Microsoft 365 Copilot is an AI assistant powered by large language models (GPT-4 and above, including the new GPT-5.2) embedded directly into the Microsoft 365 apps you already use &mdash; Word, Excel, PowerPoint, Outlook, Teams, and more. It operates within your organization's security and privacy boundaries and can access your files, emails, meetings, and chats to provide contextual, relevant assistance.</div>
+  <div class="feature-grid">
+    <div class="feature-card"><h4>&#x1F4AC; <span data-i18n="intro-card1-title">Copilot Chat</span></h4><p data-i18n="intro-card1-desc">A central chat interface that connects all your organizational data &mdash; files, emails, meetings, and web search. Your AI command center for work.</p></div>
+    <div class="feature-card"><h4>&#x1F4DD; <span data-i18n="intro-card2-title">Embedded in Apps</span></h4><p data-i18n="intro-card2-desc">Copilot is built directly into Word, Excel, PowerPoint, Outlook, and Teams &mdash; it works on the file you have open and understands its context.</p></div>
+    <div class="feature-card"><h4>&#x1F916; <span data-i18n="intro-card3-title">AI Agents</span></h4><p data-i18n="intro-card3-desc">Advanced reasoning agents like Researcher and Analyst perform multi-step research and complex data analysis &mdash; new in 2025!</p></div>
+    <div class="feature-card"><h4>&#x1F512; <span data-i18n="intro-card4-title">Security &amp; Privacy</span></h4><p data-i18n="intro-card4-desc">Copilot operates within your organizational permissions &mdash; it only accesses data you're authorized to see and does not use your data for model training.</p></div>
+  </div>
+  <div class="info-box" role="note"><div class="tip-icon" aria-hidden="true">&#x2139;&#xFE0F;</div><p data-i18n="intro-info"><strong>Academic Licensing:</strong> Microsoft 365 Copilot is available for academic institutions at $18/user/month (faculty, staff, and students 13+). Additionally, Copilot Chat (basic version) is available at no cost for users with a Microsoft 365 A1, A3, or A5 license.</p></div>
+</section>
+
+<section class="section" id="prompting" aria-labelledby="prompting-heading">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--accent-light);color:var(--accent);" aria-hidden="true">&#x2728;</div>
+    <h2 id="prompting-heading" data-i18n="prompting-title">The Art of Prompting &mdash; How to Communicate with Copilot</h2>
+  </div>
+  <div class="section-desc" data-i18n="prompting-desc">A great prompt is the key to great results. Microsoft recommends a four-element framework for effective prompting. You don't need all four every time &mdash; but the more specific you are, the better the output.</div>
+  <div class="formula-box">
+    <h3 data-i18n="formula-title">The Effective Prompt Formula</h3>
+    <div class="formula-items">
+      <div class="formula-item">&#x1F3AF; <span data-i18n="formula-goal">Goal</span><br><small style="font-weight:400;color:var(--text-secondary)" data-i18n="formula-goal-sub">What to do</small></div>
+      <div class="formula-plus" aria-hidden="true">+</div>
+      <div class="formula-item">&#x1F4CB; <span data-i18n="formula-context">Context</span><br><small style="font-weight:400;color:var(--text-secondary)" data-i18n="formula-context-sub">Why &amp; for whom</small></div>
+      <div class="formula-plus" aria-hidden="true">+</div>
+      <div class="formula-item">&#x1F4C2; <span data-i18n="formula-source">Source</span><br><small style="font-weight:400;color:var(--text-secondary)" data-i18n="formula-source-sub">Which files/data</small></div>
+      <div class="formula-plus" aria-hidden="true">+</div>
+      <div class="formula-item">&#x1F4CF; <span data-i18n="formula-expect">Expectations</span><br><small style="font-weight:400;color:var(--text-secondary)" data-i18n="formula-expect-sub">Format &amp; tone</small></div>
+    </div>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card"><h4>&#x1F3AF; <span data-i18n="prompting-goal-title">Goal</span></h4><p data-i18n="prompting-goal-desc">What do you want Copilot to do? This is the only required element. Examples: "Summarize," "Write," "Analyze," "Compare," "Create a table."</p></div>
+    <div class="feature-card"><h4>&#x1F4CB; <span data-i18n="prompting-context-title">Context</span></h4><p data-i18n="prompting-context-desc">Why do you need this? Who is the audience? Example: "I'm writing a grant proposal for a science foundation," "For a journal article submission."</p></div>
+    <div class="feature-card"><h4>&#x1F4C2; <span data-i18n="prompting-source-title">Source</span></h4><p data-i18n="prompting-source-desc">What materials should Copilot use? Files, emails, meetings. Use <strong>/</strong> to reference a specific file or SharePoint site.</p></div>
+    <div class="feature-card"><h4>&#x1F4CF; <span data-i18n="prompting-expect-title">Expectations</span></h4><p data-i18n="prompting-expect-desc">How should the response look? Length, format, style, tone. Example: "In a table format," "Under 200 words," "Formal academic tone."</p></div>
+  </div>
+  <div class="tip-box" role="note"><div class="tip-icon" aria-hidden="true">&#x1F4A1;</div><p data-i18n="prompting-tip1"><strong>Important Tip:</strong> Word order matters in prompts! Microsoft notes that the latter parts of a prompt tend to receive more emphasis. If you want Copilot to use a specific file, put the file reference at the end of your prompt.</p></div>
+  <div class="tip-box" role="note"><div class="tip-icon" aria-hidden="true">&#x1F4A1;</div><p data-i18n="prompting-tip2"><strong>Persona Prompting:</strong> Try assigning a role to Copilot. For example: "As an expert research methodologist..." &mdash; this helps steer the tone, depth, and angle of the response.</p></div>
+  <div class="warning-box" role="alert"><div class="tip-icon" aria-hidden="true">&#x26A0;&#xFE0F;</div><p data-i18n="prompting-warning"><strong>Always verify the output!</strong> Copilot is an assistant, not a replacement for professional judgment. Check factual accuracy, citations, and sources before using any generated content.</p></div>
+</section>
+
+<section class="section" id="chat" aria-labelledby="chat-heading">
+  <div class="section-header"><div class="section-icon" style="background:#f3e8ff;color:#8b5cf6;" aria-hidden="true">&#x1F4AC;</div><h2 id="chat-heading" data-i18n="chat-title">Copilot Chat &mdash; Your Command Center</h2></div>
+  <div class="section-desc" data-i18n="chat-desc">Copilot Chat (accessible at microsoft365.com/copilot or the M365 app) is the central chat interface. In <strong>Work</strong> mode, it accesses all your organizational data. In <strong>Web</strong> mode, it searches the internet. Reference specific files using <strong>/</strong>.</div>
+  <div class="card"><h3 data-i18n="chat-cap-title">Key Capabilities</h3><p data-i18n="chat-cap-desc">Summarize emails &amp; files | Search organizational data | Generate content | Answer questions based on org documents | Web search | Create Word/Excel/PowerPoint files from chat | Access SharePoint via / | Model selector with GPT-5.2</p></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="chat-p1-label">Prompt &mdash; Organizational Summary</div><div class="prompt-text" data-i18n="chat-p1">Summarize all emails I received this week about [research project name] and list the key action items and deadlines mentioned.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="chat-p2-label">Prompt &mdash; Document Search</div><div class="prompt-text" data-i18n="chat-p2">Find all documents in our SharePoint that are related to [topic] and provide a brief summary of each one, highlighting the most recent updates.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="chat-p3-label">Prompt &mdash; Meeting Preparation</div><div class="prompt-text" data-i18n="chat-p3">Help me prepare for my meeting with [name/team] tomorrow. Summarize our recent email exchanges, any shared documents, and the notes from our last meeting.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="chat-p4-label">Prompt &mdash; Create a Document from Chat</div><div class="prompt-text" data-i18n="chat-p4">Create a Word document with a literature review outline on [topic]. Include sections for: introduction, theoretical framework, methodology review, key findings, and gaps in the literature.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="tip-box" role="note"><div class="tip-icon" aria-hidden="true">&#x1F4A1;</div><p data-i18n="chat-tip"><strong>New!</strong> You can now search your Copilot conversation history, including chats from Notebooks, Agents, and the main interface &mdash; all through an integrated search experience.</p></div>
+</section>
+
+<section class="section" id="word" aria-labelledby="word-heading">
+  <div class="section-header"><div class="section-icon" style="background:#dbeafe;color:#1e40af;" aria-hidden="true">&#x1F4D1;</div><h2 id="word-heading" data-i18n="word-title">Copilot in Word &mdash; Academic Writing</h2></div>
+  <div class="section-desc" data-i18n="word-desc">Copilot in Word helps you create, rewrite, summarize, and edit documents. It understands the context of the open document and can reference other files. The new <strong>Agent Mode</strong> allows Copilot to make multi-step edits across the entire document.</div>
+  <div class="card"><h3 data-i18n="word-cap-title">Key Capabilities</h3><p data-i18n="word-cap-desc">Draft content from scratch | Rewrite &amp; rephrase | Summarize long documents | Add citations and references | Ask questions about content | Convert text to tables | Agent Mode for multi-step editing</p></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="word-p1-label">Prompt &mdash; Research Abstract</div><div class="prompt-text" data-i18n="word-p1">Write an academic abstract (250 words max) for a research paper about [topic]. Follow the structure: background, objective, methods, key findings, and conclusion. Use formal academic tone.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="word-p2-label">Prompt &mdash; Improve Academic Writing</div><div class="prompt-text" data-i18n="word-p2">Rewrite the selected paragraph to improve academic clarity and flow. Maintain the original meaning but use more precise terminology and stronger transitions. Keep a formal scholarly tone.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="word-p3-label">Prompt &mdash; Structured Summary</div><div class="prompt-text" data-i18n="word-p3">Summarize this document in a structured format: (1) Research question, (2) Methodology, (3) Key findings, (4) Limitations, (5) Implications. Keep each section to 2-3 sentences.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="word-p4-label">Prompt &mdash; Literature Review Draft</div><div class="prompt-text" data-i18n="word-p4">Based on /[filename], draft a literature review section that synthesizes the key themes, identifies areas of consensus and debate, and highlights gaps that warrant further research.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="word-p5-label">Prompt &mdash; Research Proposal</div><div class="prompt-text" data-i18n="word-p5">Draft a research proposal outline for a study on [topic]. Include: title, research questions, significance, theoretical framework, methodology, expected outcomes, timeline, and budget. Target: academic grant committee.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="word-p6-label">Prompt &mdash; Agent Mode (Full Document Edit)</div><div class="prompt-text" data-i18n="word-p6">Review this entire document and improve it: fix grammatical errors, enhance clarity, ensure consistent citation formatting, add transition sentences between sections, and create a table of contents. Show me each change.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="tip-box" role="note"><div class="tip-icon" aria-hidden="true">&#x1F4A1;</div><p data-i18n="word-tip"><strong>Citations:</strong> Copilot in Word can add in-text citations and a references list. Always verify the accuracy of every citation it generates!</p></div>
+</section>
+
+<section class="section" id="excel" aria-labelledby="excel-heading">
+  <div class="section-header"><div class="section-icon" style="background:#dcfce7;color:#166534;" aria-hidden="true">&#x1F4CA;</div><h2 id="excel-heading" data-i18n="excel-title">Copilot in Excel &mdash; Data Analysis</h2></div>
+  <div class="section-desc" data-i18n="excel-desc">Copilot in Excel helps create formulas, analyze data, identify trends, and present insights as charts and Pivot Tables. New features include the <strong>=COPILOT()</strong> function, <strong>Python support</strong>, and <strong>Agent Mode</strong> for multi-step tasks.</div>
+  <div class="card"><h3 data-i18n="excel-cap-title">Key Capabilities</h3><p data-i18n="excel-cap-desc">Natural language formulas | Data analysis &amp; insights | Charts &amp; Pivot Tables | =COPILOT() function | Python analysis | Agent Mode | Works with local files</p></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="excel-p1-label">Prompt &mdash; Statistical Analysis</div><div class="prompt-text" data-i18n="excel-p1">Analyze this dataset: provide descriptive statistics (mean, median, standard deviation) for all numerical columns, identify outliers, and highlight significant trends.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="excel-p2-label">Prompt &mdash; Create a Chart</div><div class="prompt-text" data-i18n="excel-p2">Create a chart showing the relationship between [column A] and [column B]. Use a scatter plot with a trend line and clear axis labels.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="excel-p3-label">Prompt &mdash; Formulas</div><div class="prompt-text" data-i18n="excel-p3">Add a new column that calculates the percentage change between [column name] values from one row to the next, and highlight changes greater than 10%.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="excel-p4-label">Prompt &mdash; Survey Data Analysis</div><div class="prompt-text" data-i18n="excel-p4">Analyze this survey data: calculate response frequencies, create cross-tabulations between [demographic variable] and [response variable], and identify statistically significant patterns.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="excel-p5-label">Prompt &mdash; Python Analysis</div><div class="prompt-text" data-i18n="excel-p5">Using Python, perform a correlation analysis between all numerical columns. Generate a correlation matrix heatmap and highlight the strongest correlations.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="excel-p6-label">Prompt &mdash; =COPILOT() Example</div><div class="prompt-text">=COPILOT("Classify the sentiment of this text as Positive, Negative, or Neutral", A2)</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="info-box" role="note"><div class="tip-icon" aria-hidden="true">&#x2139;&#xFE0F;</div><p data-i18n="excel-info"><strong>New &mdash; =COPILOT():</strong> AI directly in your formulas. Enter a natural language prompt, reference cells, and get AI results that update automatically when data changes.</p></div>
+  <div class="tip-box" role="note"><div class="tip-icon" aria-hidden="true">&#x1F4A1;</div><p data-i18n="excel-tip"><strong>Agent Mode in Excel:</strong> Plans, executes, and validates multi-step tasks &mdash; building models, reshaping tables, creating charts &mdash; directly in the grid.</p></div>
+</section>
+
+<section class="section" id="ppt" aria-labelledby="ppt-heading">
+  <div class="section-header"><div class="section-icon" style="background:#fee2e2;color:#991b1b;" aria-hidden="true">&#x1F3AC;</div><h2 id="ppt-heading" data-i18n="ppt-title">Copilot in PowerPoint &mdash; Academic Presentations</h2></div>
+  <div class="section-desc" data-i18n="ppt-desc">Copilot in PowerPoint creates full presentations, designs slides, adds images, and summarizes existing decks. In the new <strong>Agent Mode</strong>, you can create and edit presentations through natural conversation.</div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="ppt-p1-label">Prompt &mdash; Conference Presentation</div><div class="prompt-text" data-i18n="ppt-p1">Create a 12-slide presentation for an academic conference about [topic]. Include: title slide, background, literature review, methodology, results, discussion, limitations, future research, and references.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="ppt-p2-label">Prompt &mdash; Presentation from Document</div><div class="prompt-text" data-i18n="ppt-p2">Create a presentation based on /[research_paper.docx]. Extract key points, organize logically across slides, include main findings. Keep text concise &mdash; max 4 bullet points per slide.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="ppt-p3-label">Prompt &mdash; Lecture Slides</div><div class="prompt-text" data-i18n="ppt-p3">Create a lecture presentation on [topic] for graduate students. Include explanations, examples, and discussion questions. Add speaker notes with talking points for each slide.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="ppt-p4-label">Prompt &mdash; Redesign &amp; Restructure</div><div class="prompt-text" data-i18n="ppt-p4">Reorganize this presentation to improve narrative flow. Add transition slides, make text more concise, and suggest where visual elements would strengthen the message.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="tip-box" role="note"><div class="tip-icon" aria-hidden="true">&#x1F4A1;</div><p data-i18n="ppt-tip"><strong>Reference files:</strong> Use <strong>/</strong> to point Copilot to a Word document, PDF, or another presentation as source material &mdash; perfect for turning papers into conference slides.</p></div>
+</section>
+
+<section class="section" id="outlook" aria-labelledby="outlook-heading">
+  <div class="section-header"><div class="section-icon" style="background:#fef3c7;color:#92400e;" aria-hidden="true">&#x1F4E7;</div><h2 id="outlook-heading" data-i18n="outlook-title">Copilot in Outlook &mdash; Communication Management</h2></div>
+  <div class="section-desc" data-i18n="outlook-desc">Copilot in Outlook helps draft emails, summarize long threads, and manage your inbox intelligently. New features include attachment search, smart auto-replies matching your style, and voice experience on mobile.</div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="outlook-p1-label">Prompt &mdash; Academic Email</div><div class="prompt-text" data-i18n="outlook-p1">Draft a professional email to [journal editor / conference organizer / collaborator] regarding [topic]. Formal academic tone. Include: greeting, purpose, key details, and a clear call to action.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="outlook-p2-label">Prompt &mdash; Thread Summary</div><div class="prompt-text" data-i18n="outlook-p2">Summarize this email thread. Key decisions, open questions, and action items? Who needs to do what by when?</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="outlook-p3-label">Prompt &mdash; Peer Review Response</div><div class="prompt-text" data-i18n="outlook-p3">Help me draft a response to this peer review feedback. For each point, acknowledge the concern, explain how we addressed it (or why we disagree), and reference the specific changes made.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="outlook-p4-label">Prompt &mdash; Adjust Tone</div><div class="prompt-text" data-i18n="outlook-p4">Rewrite this email to be more [formal / concise / diplomatic / encouraging]. Keep the core message but adjust the tone for [audience].</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+</section>
+
+<section class="section" id="teams" aria-labelledby="teams-heading">
+  <div class="section-header"><div class="section-icon" style="background:#e0e7ff;color:#3730a3;" aria-hidden="true">&#x1F4F9;</div><h2 id="teams-heading" data-i18n="teams-title">Copilot in Teams &mdash; Meetings &amp; Collaboration</h2></div>
+  <div class="section-desc" data-i18n="teams-desc">Copilot in Teams summarizes meetings in real time, tracks decisions and action items, and provides customizable recap templates. New: <strong>Speaker Summary</strong>, <strong>Executive Summary</strong>, custom templates, <strong>Audio Recap</strong>, and chat search.</div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="teams-p1-label">Prompt &mdash; Meeting Summary</div><div class="prompt-text" data-i18n="teams-p1">Summarize this meeting. Main topics, decisions, and action items? Organize by topic and indicate who is responsible.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="teams-p2-label">Prompt &mdash; Research Meeting Tracking</div><div class="prompt-text" data-i18n="teams-p2">What research-related decisions were made? List methodological changes, timeline updates, and assigned tasks.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="teams-p3-label">Prompt &mdash; Real-Time Question</div><div class="prompt-text" data-i18n="teams-p3">What has been discussed about [specific topic]? Did anyone raise concerns or suggest alternatives?</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="teams-p4-label">Prompt &mdash; Follow-Up Agenda</div><div class="prompt-text" data-i18n="teams-p4">Based on this meeting's discussion and outstanding items, suggest an agenda for a follow-up meeting with time estimates.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="info-box" role="note"><div class="tip-icon" aria-hidden="true">&#x2139;&#xFE0F;</div><p data-i18n="teams-info"><strong>Custom Recaps:</strong> Choose Speaker Summary, Executive Summary, or create your own template &mdash; e.g., "Research Meeting Notes" with methodology updates, data collection status, next steps.</p></div>
+</section>
+
+<section class="section" id="notebooks" aria-labelledby="notebooks-heading">
+  <div class="section-header"><div class="section-icon" style="background:#fce7f3;color:#9d174d;" aria-hidden="true">&#x1F4D3;</div><h2 id="notebooks-heading" data-i18n="notebooks-title">Notebooks &amp; Pages &mdash; Smart Workspaces</h2></div>
+  <div class="section-desc" data-i18n="notebooks-desc"><strong>Copilot Notebooks</strong> brings together all relevant materials and works on them with Copilot in a scoped workspace. <strong>Copilot Pages</strong> turns any response into a collaborative, editable canvas you can share.</div>
+  <div class="feature-grid">
+    <div class="feature-card"><h4>&#x1F4D3; <span data-i18n="nb-card1-title">Notebooks</span></h4><p data-i18n="nb-card1-desc">Centralize all materials for a project. Add docs, slides, sheets, meeting notes, and chats. Copilot analyzes only your curated content.</p></div>
+    <div class="feature-card"><h4>&#x1F4C4; <span data-i18n="nb-card2-title">Pages</span></h4><p data-i18n="nb-card2-desc">Turn any Copilot response into a collaborative page. Edit, expand, and share via Teams or Outlook.</p></div>
+    <div class="feature-card"><h4>&#x1F393; <span data-i18n="nb-card3-title">Study Guide</span></h4><p data-i18n="nb-card3-desc">Transform learning materials into an interactive study guide with summaries, Flashcards, and Quizzes.</p></div>
+  </div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="nb-p1-label">Prompt &mdash; Research Synthesis</div><div class="prompt-text" data-i18n="nb-p1">Based on all materials in this notebook, identify common themes, contradictions between sources, and gaps. Create a synthesis for a literature review foundation.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="nb-p2-label">Prompt &mdash; Create a Page</div><div class="prompt-text" data-i18n="nb-p2">Create a page summarizing research methodology options for [topic]. Include a comparison table of qualitative vs. quantitative approaches with pros and cons.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+</section>
+
+<section class="section" id="agents" aria-labelledby="agents-heading">
+  <div class="section-header"><div class="section-icon" style="background:#fef3c7;color:#b45309;" aria-hidden="true">&#x1F9E0;</div><h2 id="agents-heading" data-i18n="agents-title">Researcher &amp; Analyst &mdash; Advanced AI Agents</h2></div>
+  <div class="section-desc" data-i18n="agents-desc">Two groundbreaking agents (GA since mid-2025). They perform multi-step research and analysis, think iteratively, and return deep, sourced results.</div>
+  <div class="feature-grid">
+    <div class="feature-card" style="border-top:3px solid var(--accent);"><h4>&#x1F50D; <span data-i18n="agents-card1-title">Researcher</span></h4><p data-i18n="agents-card1-desc">Powered by OpenAI's deep research model. Multi-step research across org data and web with cited reports. Supports Salesforce, Confluence connectors.</p></div>
+    <div class="feature-card" style="border-top:3px solid var(--primary);"><h4>&#x1F4C8; <span data-i18n="agents-card2-title">Analyst</span></h4><p data-i18n="agents-card2-desc">Powered by o3-mini reasoning model. Analyzes data, runs Python in real time. View the code and check each step.</p></div>
+  </div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="agents-p1-label">Prompt &mdash; Researcher: Field Survey</div><div class="prompt-text" data-i18n="agents-p1">Research the current state of [field/topic] &mdash; recent developments, key debates, leading researchers, methodological trends. Use web and org files. Produce a structured report with cited sources.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="agents-p2-label">Prompt &mdash; Researcher: Funding Trends</div><div class="prompt-text" data-i18n="agents-p2">Analyze funding trends in [area] over 5 years. Emerging priorities? Most active funders? Identify opportunities for our group based on our published work in /[folder].</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="agents-p3-label">Prompt &mdash; Analyst: Data Exploration</div><div class="prompt-text" data-i18n="agents-p3">Analyze /[filename.xlsx]. Perform EDA, test normality, run correlation analysis, create visualizations for significant findings. Show the Python code.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="agents-p4-label">Prompt &mdash; Analyst: Survey Results</div><div class="prompt-text" data-i18n="agents-p4">Analyze survey results in /[survey_data.xlsx]. Calculate Cronbach's alpha, perform factor analysis, generate demographic breakdowns. Create publication-ready tables and charts.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  <div class="tip-box" role="note"><div class="tip-icon" aria-hidden="true">&#x1F4A1;</div><p data-i18n="agents-tip"><strong>Where to find them:</strong> Microsoft 365 Copilot &rarr; Agents &rarr; select Researcher or Analyst.</p></div>
+</section>
+
+<section class="section" id="usecases" aria-labelledby="usecases-heading">
+  <div class="section-header"><div class="section-icon" style="background:#ecfdf5;color:#059669;" aria-hidden="true">&#x1F393;</div><h2 id="usecases-heading" data-i18n="usecases-title">Research Lifecycle &mdash; Use Case Scenarios</h2></div>
+  <div class="section-desc" data-i18n="usecases-desc">Practical scenarios for leveraging Copilot throughout the entire research lifecycle &mdash; from ideation through publication.</div>
+  <div class="table-scroll-wrapper" tabindex="0" role="region" aria-label="Scrollable table">
+  <table class="use-case-table"><thead><tr><th scope="col" data-i18n="table-phase">Research Phase</th><th scope="col" data-i18n="table-usecase">Use Case</th><th scope="col" data-i18n="table-tool">Recommended Tool</th></tr></thead><tbody>
+    <tr><td><strong data-i18n="phase-ideation">Ideation</strong></td><td data-i18n="uc-ideation">Literature survey, identifying gaps, mapping the field</td><td><span class="tag tag-chat">Chat</span><span class="tag tag-new">Researcher</span></td></tr>
+    <tr><td><strong data-i18n="phase-proposal">Proposal Writing</strong></td><td data-i18n="uc-proposal">Research proposals, research questions, theoretical frameworks</td><td><span class="tag tag-word">Word</span><span class="tag tag-chat">Chat</span></td></tr>
+    <tr><td><strong data-i18n="phase-grant">Grant Applications</strong></td><td data-i18n="uc-grant">Grant proposals, budgets, adapting to funder requirements</td><td><span class="tag tag-word">Word</span><span class="tag tag-excel">Excel</span></td></tr>
+    <tr><td><strong data-i18n="phase-datacol">Data Collection</strong></td><td data-i18n="uc-datacol">Questionnaire design, data tables, data cleaning</td><td><span class="tag tag-excel">Excel</span></td></tr>
+    <tr><td><strong data-i18n="phase-dataana">Data Analysis</strong></td><td data-i18n="uc-dataana">Statistical analysis, visualizations, trends</td><td><span class="tag tag-excel">Excel</span><span class="tag tag-new">Analyst</span></td></tr>
+    <tr><td><strong data-i18n="phase-writing">Paper Writing</strong></td><td data-i18n="uc-writing">Manuscripts, style, citations, editing</td><td><span class="tag tag-word">Word</span></td></tr>
+    <tr><td><strong data-i18n="phase-review">Peer Review</strong></td><td data-i18n="uc-review">Reviewer comments, responses, tracking changes</td><td><span class="tag tag-word">Word</span><span class="tag tag-outlook">Outlook</span></td></tr>
+    <tr><td><strong data-i18n="phase-conf">Conference Talks</strong></td><td data-i18n="uc-conf">Presentations from papers, speaker notes</td><td><span class="tag tag-ppt">PowerPoint</span></td></tr>
+    <tr><td><strong data-i18n="phase-collab">Collaboration</strong></td><td data-i18n="uc-collab">Meeting summaries, task tracking, coordination</td><td><span class="tag tag-teams">Teams</span><span class="tag tag-outlook">Outlook</span></td></tr>
+    <tr><td><strong data-i18n="phase-teach">Teaching</strong></td><td data-i18n="uc-teach">Lecture materials, study guides, quizzes</td><td><span class="tag tag-ppt">PowerPoint</span><span class="tag tag-word">Word</span></td></tr>
+    <tr><td><strong data-i18n="phase-lab">Lab Management</strong></td><td data-i18n="uc-lab">Equipment tracking, protocols, reporting</td><td><span class="tag tag-excel">Excel</span><span class="tag tag-word">Word</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="promptlib" aria-labelledby="promptlib-heading">
+  <div class="section-header"><div class="section-icon" style="background:#fff7ed;color:#c2410c;" aria-hidden="true">&#x1F4DA;</div><h2 id="promptlib-heading" data-i18n="promptlib-title">Prompt Library for Academic Researchers</h2></div>
+  <div class="section-desc" data-i18n="promptlib-desc">Click any prompt to copy it. Replace [brackets] with your own details.</div>
+
+  <div class="collapsible-header" role="button" tabindex="0" aria-expanded="false" aria-controls="c-litrev"><h3 data-i18n="lib-litrev">&#x1F4DA; Literature Review &amp; Initial Research</h3><span class="collapsible-arrow" aria-hidden="true">&#x25BC;</span></div>
+  <div class="collapsible-content" id="c-litrev" aria-hidden="true">
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-lr-p1-label">Field Mapping</div><div class="prompt-text" data-i18n="lib-lr-p1">I'm starting a literature review on [topic]. Help me identify key theoretical frameworks, seminal works, and current debates. Organize by: (1) foundational theories, (2) major research streams, (3) trends, (4) gaps.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-lr-p2-label">Source Comparison</div><div class="prompt-text" data-i18n="lib-lr-p2">Compare methodological approaches in /[paper1.pdf] and /[paper2.pdf]. Create a table: research design, sample size, data collection, analysis techniques, limitations.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-lr-p3-label">Research Gaps</div><div class="prompt-text" data-i18n="lib-lr-p3">Based on /[notes], identify significant research gaps. For each: why it matters, what methodology could address it, potential contribution.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-lr-p4-label">Article Summary</div><div class="prompt-text" data-i18n="lib-lr-p4">Summarize /[article.pdf]: (1) Research question, (2) Theory, (3) Methodology, (4) Findings, (5) Limitations, (6) Future research. Max 500 words.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  </div>
+
+  <div class="collapsible-header" role="button" tabindex="0" aria-expanded="false" aria-controls="c-writing"><h3 data-i18n="lib-writing">&#x270D;&#xFE0F; Academic Writing</h3><span class="collapsible-arrow" aria-hidden="true">&#x25BC;</span></div>
+  <div class="collapsible-content" id="c-writing" aria-hidden="true">
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-wr-p1-label">Abstract</div><div class="prompt-text" data-i18n="lib-wr-p1">Write a structured abstract (300 words max) for a [quant/qual/mixed] study on [topic]. Include: Background, Objective, Methods, Results, Conclusion.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-wr-p2-label">Introduction</div><div class="prompt-text" data-i18n="lib-wr-p2">Draft an introduction for a paper on [topic]. Use the "funnel" structure: broad field, specific problem, gap, research questions. ~800 words.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-wr-p3-label">Methodology</div><div class="prompt-text" data-i18n="lib-wr-p3">Draft a methodology section for a [type] study. Include: design, participants (N=[n]), instruments, procedure, analysis, ethics. Target journal: [name].</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-wr-p4-label">Discussion</div><div class="prompt-text" data-i18n="lib-wr-p4">Based on /[results.docx], draft a discussion: (1) main findings, (2) literature interpretation, (3) implications, (4) limitations, (5) future research.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-wr-p5-label">Language Improvement</div><div class="prompt-text" data-i18n="lib-wr-p5">Improve academic writing quality: precision, clarity, transitions, remove redundancy, scholarly language, consistent terminology. Preserve original argument.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  </div>
+
+  <div class="collapsible-header" role="button" tabindex="0" aria-expanded="false" aria-controls="c-data"><h3 data-i18n="lib-data">&#x1F4CA; Data Analysis</h3><span class="collapsible-arrow" aria-hidden="true">&#x25BC;</span></div>
+  <div class="collapsible-content" id="c-data" aria-hidden="true">
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-da-p1-label">EDA</div><div class="prompt-text" data-i18n="lib-da-p1">Perform EDA: missing values, descriptive statistics, outliers, distributions, normality tests. Suggest appropriate statistical tests.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-da-p2-label">Survey Analysis</div><div class="prompt-text" data-i18n="lib-da-p2">Analyze survey data: (1) response rates, (2) reliability (Cronbach's alpha), (3) frequency tables, (4) cross-tabulations, (5) visualizations.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-da-p3-label">Visualization</div><div class="prompt-text" data-i18n="lib-da-p3">Create publication-quality charts: (1) bar chart comparing [groups], (2) line graph of trends over [time], (3) scatter plot of [var1] vs [var2]. Clear labels and clean design.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-da-p4-label">Data Cleaning</div><div class="prompt-text" data-i18n="lib-da-p4">Clean dataset: handle missing values, remove duplicates, standardize dates, fix errors. Keep a change log for the methodology section.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  </div>
+
+  <div class="collapsible-header" role="button" tabindex="0" aria-expanded="false" aria-controls="c-comm"><h3 data-i18n="lib-comm">&#x1F4E8; Academic Communication</h3><span class="collapsible-arrow" aria-hidden="true">&#x25BC;</span></div>
+  <div class="collapsible-content" id="c-comm" aria-hidden="true">
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-cm-p1-label">Journal Cover Letter</div><div class="prompt-text" data-i18n="lib-cm-p1">Draft a cover letter for submitting "[title]" to [journal]. Highlight novelty, relevance, key findings. State it hasn't been submitted elsewhere.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-cm-p2-label">Rebuttal Letter</div><div class="prompt-text" data-i18n="lib-cm-p2">Point-by-point response to reviewers. For each: (1) quote original comment, (2) our response, (3) changes with page/line references. Professional tone.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-cm-p3-label">Collaboration Email</div><div class="prompt-text" data-i18n="lib-cm-p3">Email to [Professor] at [University] proposing collaboration on [topic]. Introduce myself, explain synergy, suggest framework, propose meeting. Formal tone.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  </div>
+
+  <div class="collapsible-header" role="button" tabindex="0" aria-expanded="false" aria-controls="c-teach"><h3 data-i18n="lib-teach">&#x1F3EB; Teaching &amp; Mentoring</h3><span class="collapsible-arrow" aria-hidden="true">&#x25BC;</span></div>
+  <div class="collapsible-content" id="c-teach" aria-hidden="true">
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-tc-p1-label">Course Syllabus</div><div class="prompt-text" data-i18n="lib-tc-p1">Create a syllabus for a [level] course on [topic]. Include: description, Bloom's taxonomy objectives, weekly schedule, assessment, integrity policy.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-tc-p2-label">Discussion Questions</div><div class="prompt-text" data-i18n="lib-tc-p2">From /[reading], generate 8 graduate seminar questions at comprehension, analysis, evaluation, synthesis levels. Add 2 connecting to current issues.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-tc-p3-label">Student Feedback</div><div class="prompt-text" data-i18n="lib-tc-p3">Constructive feedback for a student's proposal on [topic]. Address: research question, lit review, methodology, feasibility, writing. Be encouraging and specific.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-tc-p4-label">Exam Creation</div><div class="prompt-text" data-i18n="lib-tc-p4">Create an exam for [course] from /[slides.pptx]. 10 MCQs (with key), 3 short-answer, 1 essay. Cover all topics at varying difficulty.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  </div>
+
+  <div class="collapsible-header" role="button" tabindex="0" aria-expanded="false" aria-controls="c-admin"><h3 data-i18n="lib-admin">&#x1F4C1; Administration &amp; Organization</h3><span class="collapsible-arrow" aria-hidden="true">&#x25BC;</span></div>
+  <div class="collapsible-content" id="c-admin" aria-hidden="true">
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-ad-p1-label">Progress Report</div><div class="prompt-text" data-i18n="lib-ad-p1">From recent emails, meetings, and documents on [project], draft a quarterly report: objectives achieved, activities, challenges, budget, next quarter plans.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-ad-p2-label">Activity Summary</div><div class="prompt-text" data-i18n="lib-ad-p2">Summarize my past month's meetings, emails, and documents for [department]. Main decisions, pending items, approaching deadlines.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+    <div class="prompt-block" role="button" tabindex="0"><div class="prompt-label" data-i18n="lib-ad-p3-label">Recommendation Letter</div><div class="prompt-text" data-i18n="lib-ad-p3">Draft a recommendation for [student] applying to [program] at [institution]. We worked on [project]. Strengths: [list]. One page, warm and professional.</div><button class="copy-btn" data-i18n="copy">Copy</button></div>
+  </div>
+</section>
+
+<section class="section" id="quickref" aria-labelledby="quickref-heading">
+  <div class="section-header"><div class="section-icon" style="background:var(--primary-light);color:var(--primary);" aria-hidden="true">&#x26A1;</div><h2 id="quickref-heading" data-i18n="quickref-title">Quick Reference &mdash; Tips &amp; Shortcuts</h2></div>
+  <div class="feature-grid">
+    <div class="feature-card"><h4 data-i18n="qr-card1-title">/ &mdash; Reference a File</h4><p data-i18n="qr-card1-desc">Type <strong>/</strong> in any Copilot prompt to select a specific file. Works with Word, PowerPoint, Excel, SharePoint, and OneNote.</p></div>
+    <div class="feature-card"><h4>&#x1F504; <span data-i18n="qr-card2-title">Iterate &amp; Refine</span></h4><p data-i18n="qr-card2-desc">Don't settle for the first response. Ask Copilot to improve, shorten, expand, or change tone &mdash; every conversation is iterative.</p></div>
+    <div class="feature-card"><h4>&#x1F4CC; <span data-i18n="qr-card3-title">Pages &mdash; Save Good Output</span></h4><p data-i18n="qr-card3-desc">Great response? Turn it into a Page &mdash; edit, expand, and share with others.</p></div>
+    <div class="feature-card"><h4>&#x1F4D3; <span data-i18n="qr-card4-title">Notebooks &mdash; Per Project</span></h4><p data-i18n="qr-card4-desc">Create a Notebook for each research project. Gather materials and ask focused questions.</p></div>
+    <div class="feature-card"><h4>&#x1F3AD; <span data-i18n="qr-card5-title">Personas</span></h4><p data-i18n="qr-card5-desc">Assign a role: "As a statistical consultant...", "As a journal editor..." &mdash; responses will be more targeted.</p></div>
+    <div class="feature-card"><h4>&#x1F6E1;&#xFE0F; <span data-i18n="qr-card6-title">Always Verify!</span></h4><p data-i18n="qr-card6-desc">Check facts, citations, and statistics before using any output. Professional responsibility is yours.</p></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-credit">
+      <p data-i18n="footer-credit"><strong>Built by Tom Hagiladi</strong> with the assistance of <strong>Claude Code</strong> by Anthropic</p>
+      <p data-i18n="footer-guide-meta">Microsoft 365 Copilot Training Guide for Academic Researchers | March 2026</p>
+    </div>
+    <div class="footer-section">
+      <h3 data-i18n="footer-legal-title">Legal Disclaimer</h3>
+      <p data-i18n="footer-legal-1">This guide is an independent educational resource created by Tom Hagiladi. It is not affiliated with, endorsed by, sponsored by, or in any way officially connected with Microsoft Corporation or any of its subsidiaries or affiliates. "Microsoft 365 Copilot," "Microsoft," "Word," "Excel," "PowerPoint," "Outlook," "Teams," and all related product names, logos, and trademarks are the property of Microsoft Corporation.</p>
+      <p data-i18n="footer-legal-2">The content is based on publicly available Microsoft documentation and materials, provided "as is" for educational and informational purposes only, without any warranty of any kind, express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+      <p data-i18n="footer-legal-3">Use of Microsoft 365 Copilot and any actions taken based on the information in this guide are entirely at the user's own risk and responsibility. The author shall not be liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising from the use of, or reliance on, any information provided herein.</p>
+      <p data-i18n="footer-legal-4">This guide does not constitute professional, legal, or technical advice. Users should consult official Microsoft documentation and their organization's IT administrators for current information. Features, pricing, and availability are subject to change by Microsoft without notice.</p>
+    </div>
+    <div class="footer-section accessibility-statement">
+      <h3 data-i18n="footer-a11y-title">Accessibility Statement</h3>
+      <p data-i18n="footer-a11y-1">This website complies with Israeli Standard SI 5568, based on WCAG 2.0 Level AA guidelines, as required by Regulation 35 of Israel's Equal Rights for Persons with Disabilities Regulations (2013).</p>
+      <p data-i18n="footer-a11y-2">If you encounter any accessibility issues, please contact us:</p>
+      <p><strong data-i18n="footer-a11y-coord">Accessibility Coordinator:</strong> Tom Hagiladi<br><strong>Email:</strong> <a href="mailto:tomhagiladi@gmail.com">tomhagiladi@gmail.com</a></p>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">&#x2191;</button>
+
+<script>
+/* Navigation */
+document.getElementById('nav-inner').addEventListener('click', function(e) {
+  var btn = e.target.closest('.nav-btn');
+  if (!btn) return;
+  var target = btn.getAttribute('data-target');
+  if (target) {
+    document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+});
+
+/* Copy prompt */
+var currentLang = 'en';
+function copyPrompt(block) {
+  var el = block.querySelector('.prompt-text');
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(function() {
+    var btn = block.querySelector('.copy-btn');
+    var orig = btn.textContent;
+    btn.textContent = currentLang === 'he' ? '\u05D4\u05D5\u05E2\u05EA\u05E7!' : 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+document.querySelectorAll('.prompt-block').forEach(function(b) {
+  b.addEventListener('click', function() { copyPrompt(b); });
+  b.addEventListener('keydown', function(e) { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); copyPrompt(b); } });
+});
+
+/* Collapsible */
+function toggleCollapsible(header) {
+  var exp = header.getAttribute('aria-expanded') === 'true';
+  header.setAttribute('aria-expanded', !exp);
+  var c = header.nextElementSibling;
+  c.setAttribute('aria-hidden', exp);
+}
+document.querySelectorAll('.collapsible-header').forEach(function(h) {
+  h.addEventListener('click', function() { toggleCollapsible(h); });
+  h.addEventListener('keydown', function(e) { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggleCollapsible(h); } });
+});
+
+/* Intersection Observer */
+var secs = document.querySelectorAll('.section');
+var navBtns = document.querySelectorAll('.nav-btn');
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var id = entry.target.id;
+      navBtns.forEach(function(btn) {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-target') === id) btn.classList.add('active');
+      });
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-80px 0px 0px 0px' });
+secs.forEach(function(s) { obs.observe(s); });
+
+/* Back to top */
+var backBtn = document.getElementById('backToTop');
+window.addEventListener('scroll', function() {
+  backBtn.classList.toggle('visible', window.scrollY > 400);
+});
+backBtn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+/* ═══ i18n ═══ */
+document.querySelectorAll('[data-i18n]').forEach(function(el) {
+  el.setAttribute('data-original', el.innerHTML);
+});
+
+var HE = {
+'skip-link':'\u05D3\u05DC\u05D2 \u05DC\u05EA\u05D5\u05DB\u05DF \u05D4\u05E8\u05D0\u05E9\u05D9',
+'hero-subtitle':'\u05DE\u05D3\u05E8\u05D9\u05DA \u05D4\u05D3\u05E8\u05DB\u05D4 \u05DC\u05D7\u05D5\u05E7\u05E8\u05D9\u05DD \u05D0\u05E7\u05D3\u05DE\u05D9\u05D9\u05DD',
+'hero-meta':'\u05E1\u05DE\u05D9\u05E0\u05E8 | \u05DE\u05E8\u05E5 2026',
+'nav-intro':'\u05DE\u05D1\u05D5\u05D0','nav-prompting':'\u05D0\u05DE\u05E0\u05D5\u05EA \u05D4\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8','nav-chat':'Copilot Chat','nav-word':'\u05D5\u05D5\u05E8\u05D3','nav-excel':'\u05D0\u05E7\u05E1\u05DC','nav-ppt':'\u05E4\u05D0\u05D5\u05D5\u05E8\u05E4\u05D5\u05D9\u05E0\u05D8','nav-outlook':'\u05D0\u05D0\u05D5\u05D8\u05DC\u05D5\u05E7','nav-teams':'\u05D8\u05D9\u05DE\u05E1','nav-notebooks':'\u05DE\u05D7\u05D1\u05E8\u05D5\u05EA \u05D5\u05D3\u05E4\u05D9\u05DD','nav-agents':'\u05D7\u05D5\u05E7\u05E8 \u05D5\u05D0\u05E0\u05DC\u05D9\u05E1\u05D8','nav-usecases':'\u05EA\u05E8\u05D7\u05D9\u05E9\u05D9 \u05DE\u05D7\u05E7\u05E8','nav-promptlib':'\u05E1\u05E4\u05E8\u05D9\u05D9\u05EA \u05E4\u05E8\u05D5\u05DE\u05E4\u05D8\u05D9\u05DD',
+'intro-title':'?Microsoft 365 Copilot \u05DE\u05D4\u05D5',
+'intro-desc':'Microsoft 365 Copilot \u05D4\u05D5\u05D0 \u05E2\u05D5\u05D6\u05E8 AI \u05D4\u05DE\u05D5\u05E4\u05E2\u05DC \u05E2\u05DC \u05D9\u05D3\u05D9 \u05DE\u05D5\u05D3\u05DC\u05D9 \u05E9\u05E4\u05D4 \u05D2\u05D3\u05D5\u05DC\u05D9\u05DD (GPT-4 \u05D5\u05DE\u05E2\u05DC\u05D4, \u05DB\u05D5\u05DC\u05DC GPT-5.2 \u05D4\u05D7\u05D3\u05E9) \u05D4\u05DE\u05E9\u05D5\u05DC\u05D1 \u05D9\u05E9\u05D9\u05E8\u05D5\u05EA \u05D1\u05D0\u05E4\u05DC\u05D9\u05E7\u05E6\u05D9\u05D5\u05EA Microsoft 365 \u05E9\u05D0\u05EA\u05DD \u05DB\u05D1\u05E8 \u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD \u05D1\u05D4\u05DF &mdash; Word, Excel, PowerPoint, Outlook, Teams \u05D5\u05E2\u05D5\u05D3. \u05D4\u05D5\u05D0 \u05E4\u05D5\u05E2\u05DC \u05D1\u05EA\u05D5\u05DA \u05D2\u05D1\u05D5\u05DC\u05D5\u05EA \u05D4\u05D0\u05D1\u05D8\u05D7\u05D4 \u05D5\u05D4\u05E4\u05E8\u05D8\u05D9\u05D5\u05EA \u05E9\u05DC \u05D4\u05D0\u05E8\u05D2\u05D5\u05DF.',
+'intro-card1-title':"\u05E6'\u05D0\u05D8 Copilot",'intro-card1-desc':"\u05DE\u05DE\u05E9\u05E7 \u05E6'\u05D0\u05D8 \u05DE\u05E8\u05DB\u05D6\u05D9 \u05E9\u05DE\u05D7\u05D1\u05E8 \u05D0\u05EA \u05DB\u05DC \u05D4\u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05D4\u05D0\u05E8\u05D2\u05D5\u05E0\u05D9\u05D9\u05DD \u05E9\u05DC\u05DB\u05DD &mdash; \u05E7\u05D1\u05E6\u05D9\u05DD, \u05D0\u05D9\u05DE\u05D9\u05D9\u05DC\u05D9\u05DD, \u05E4\u05D2\u05D9\u05E9\u05D5\u05EA \u05D5\u05D7\u05D9\u05E4\u05D5\u05E9 \u05D1\u05D0\u05D9\u05E0\u05D8\u05E8\u05E0\u05D8.",
+'intro-card2-title':'\u05DE\u05D5\u05D8\u05DE\u05E2 \u05D1\u05D0\u05E4\u05DC\u05D9\u05E7\u05E6\u05D9\u05D5\u05EA','intro-card2-desc':'Copilot \u05D1\u05E0\u05D5\u05D9 \u05D9\u05E9\u05D9\u05E8\u05D5\u05EA \u05D1\u05EA\u05D5\u05DA Word, Excel, PowerPoint, Outlook \u05D5-Teams &mdash; \u05D4\u05D5\u05D0 \u05E2\u05D5\u05D1\u05D3 \u05E2\u05DC \u05D4\u05E7\u05D5\u05D1\u05E5 \u05D4\u05E4\u05EA\u05D5\u05D7 \u05D5\u05DE\u05D1\u05D9\u05DF \u05D0\u05EA \u05D4\u05D4\u05E7\u05E9\u05E8.',
+'intro-card3-title':'\u05E1\u05D5\u05DB\u05E0\u05D9 AI','intro-card3-desc':'\u05E1\u05D5\u05DB\u05E0\u05D9\u05DD \u05DE\u05EA\u05E7\u05D3\u05DE\u05D9\u05DD \u05DB\u05DE\u05D5 Researcher \u05D5-Analyst \u05DE\u05D1\u05E6\u05E2\u05D9\u05DD \u05DE\u05D7\u05E7\u05E8 \u05E8\u05D1-\u05E9\u05DC\u05D1\u05D9 \u05D5\u05E0\u05D9\u05EA\u05D5\u05D7 \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05DE\u05D5\u05E8\u05DB\u05D1 &mdash; \u05D7\u05D3\u05E9 \u05D1-2025!',
+'intro-card4-title':'\u05D0\u05D1\u05D8\u05D7\u05D4 \u05D5\u05E4\u05E8\u05D8\u05D9\u05D5\u05EA','intro-card4-desc':'Copilot \u05E4\u05D5\u05E2\u05DC \u05D1\u05EA\u05D5\u05DA \u05D4\u05E8\u05E9\u05D0\u05D5\u05EA \u05D4\u05D0\u05E8\u05D2\u05D5\u05DF &mdash; \u05D4\u05D5\u05D0 \u05E0\u05D9\u05D2\u05E9 \u05E8\u05E7 \u05DC\u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05E9\u05D0\u05EA\u05DD \u05DE\u05D5\u05E8\u05E9\u05D9\u05DD \u05DC\u05E8\u05D0\u05D5\u05EA \u05D5\u05D0\u05D9\u05E0\u05D5 \u05DE\u05E9\u05EA\u05DE\u05E9 \u05D1\u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05DC\u05D0\u05D9\u05DE\u05D5\u05DF \u05D4\u05DE\u05D5\u05D3\u05DC.',
+'intro-info':'<strong>\u05E8\u05D9\u05E9\u05D5\u05D9 \u05D0\u05E7\u05D3\u05DE\u05D9:</strong> Microsoft 365 Copilot \u05D6\u05DE\u05D9\u05DF \u05DC\u05DE\u05D5\u05E1\u05D3\u05D5\u05EA \u05D0\u05E7\u05D3\u05DE\u05D9\u05D9\u05DD \u05D1-$18 \u05DC\u05DE\u05E9\u05EA\u05DE\u05E9/\u05D7\u05D5\u05D3\u05E9. Copilot Chat (\u05D2\u05E8\u05E1\u05D4 \u05D1\u05E1\u05D9\u05E1\u05D9\u05EA) \u05D6\u05DE\u05D9\u05DF \u05DC\u05DC\u05D0 \u05E2\u05DC\u05D5\u05EA \u05E2\u05DD \u05E8\u05D9\u05E9\u05D9\u05D5\u05DF A1, A3 \u05D0\u05D5 A5.',
+'prompting-title':'\u05D0\u05DE\u05E0\u05D5\u05EA \u05D4\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05D0\u05D9\u05DA \u05DC\u05EA\u05E7\u05E9\u05E8 \u05E2\u05DD Copilot',
+'prompting-desc':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 \u05D8\u05D5\u05D1 \u05D4\u05D5\u05D0 \u05D4\u05DE\u05E4\u05EA\u05D7 \u05DC\u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05DE\u05E6\u05D5\u05D9\u05E0\u05D5\u05EA. \u05DE\u05D9\u05E7\u05E8\u05D5\u05E1\u05D5\u05E4\u05D8 \u05DE\u05DE\u05DC\u05D9\u05E6\u05D4 \u05E2\u05DC \u05DE\u05E1\u05D2\u05E8\u05EA \u05D1\u05EA \u05D0\u05E8\u05D1\u05E2\u05D4 \u05D0\u05DC\u05DE\u05E0\u05D8\u05D9\u05DD. \u05DC\u05D0 \u05D7\u05D9\u05D9\u05D1\u05D9\u05DD \u05D0\u05EA \u05DB\u05D5\u05DC\u05DD \u05D1\u05DB\u05DC \u05E4\u05E2\u05DD &mdash; \u05D0\u05D1\u05DC \u05DB\u05DB\u05DC \u05E9\u05EA\u05D4\u05D9\u05D5 \u05E1\u05E4\u05E6\u05D9\u05E4\u05D9\u05D9\u05DD \u05D9\u05D5\u05EA\u05E8, \u05D4\u05EA\u05D5\u05E6\u05D0\u05D4 \u05EA\u05D4\u05D9\u05D4 \u05D8\u05D5\u05D1\u05D4 \u05D9\u05D5\u05EA\u05E8.',
+'formula-title':'\u05E0\u05D5\u05E1\u05D7\u05EA \u05D4\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 \u05D4\u05D0\u05E4\u05E7\u05D8\u05D9\u05D1\u05D9',
+'formula-goal':'\u05DE\u05D8\u05E8\u05D4','formula-goal-sub':'\u05DE\u05D4 \u05DC\u05E2\u05E9\u05D5\u05EA','formula-context':'\u05D4\u05E7\u05E9\u05E8','formula-context-sub':'\u05DC\u05DE\u05D9 \u05D5\u05DC\u05DE\u05D4','formula-source':'\u05DE\u05E7\u05D5\u05E8','formula-source-sub':'\u05D0\u05D9\u05DC\u05D5 \u05E7\u05D1\u05E6\u05D9\u05DD/\u05E0\u05EA\u05D5\u05E0\u05D9\u05DD','formula-expect':'\u05E6\u05D9\u05E4\u05D9\u05D5\u05EA','formula-expect-sub':'\u05E4\u05D5\u05E8\u05DE\u05D8 \u05D5\u05E1\u05D2\u05E0\u05D5\u05DF',
+'prompting-goal-title':'\u05DE\u05D8\u05E8\u05D4','prompting-goal-desc':'\u05DE\u05D4 \u05D0\u05EA\u05DD \u05E8\u05D5\u05E6\u05D9\u05DD \u05E9-Copilot \u05D9\u05E2\u05E9\u05D4? \u05D6\u05D4 \u05D4\u05D0\u05DC\u05DE\u05E0\u05D8 \u05D4\u05D9\u05D7\u05D9\u05D3 \u05E9\u05D7\u05D5\u05D1\u05D4. \u05D3\u05D5\u05D2\u05DE\u05D0\u05D5\u05EA: "\u05E1\u05DB\u05DD," "\u05DB\u05EA\u05D5\u05D1," "\u05E0\u05EA\u05D7," "\u05D4\u05E9\u05D5\u05D5\u05D4," "\u05E6\u05D5\u05E8 \u05D8\u05D1\u05DC\u05D4."',
+'prompting-context-title':'\u05D4\u05E7\u05E9\u05E8','prompting-context-desc':'\u05DC\u05DE\u05D4 \u05D0\u05EA\u05DD \u05E6\u05E8\u05D9\u05DB\u05D9\u05DD \u05D0\u05EA \u05D6\u05D4? \u05DE\u05D9 \u05E7\u05D4\u05DC \u05D4\u05D9\u05E2\u05D3? \u05D3\u05D5\u05D2\u05DE\u05D4: "\u05D0\u05E0\u05D9 \u05DB\u05D5\u05EA\u05D1 \u05D4\u05E6\u05E2\u05EA \u05DE\u05D7\u05E7\u05E8 \u05DC\u05E7\u05E8\u05DF \u05DE\u05D3\u05E2."',
+'prompting-source-title':'\u05DE\u05E7\u05D5\u05E8','prompting-source-desc':'\u05D1\u05D0\u05D9\u05DC\u05D5 \u05D7\u05D5\u05DE\u05E8\u05D9\u05DD Copilot \u05E6\u05E8\u05D9\u05DA \u05DC\u05D4\u05E9\u05EA\u05DE\u05E9? \u05E7\u05D1\u05E6\u05D9\u05DD, \u05D0\u05D9\u05DE\u05D9\u05D9\u05DC\u05D9\u05DD, \u05E4\u05D2\u05D9\u05E9\u05D5\u05EA. \u05D4\u05E9\u05EA\u05DE\u05E9\u05D5 \u05D1-<strong>/</strong> \u05DC\u05D4\u05E4\u05E0\u05D5\u05EA \u05DC\u05E7\u05D5\u05D1\u05E5 \u05E1\u05E4\u05E6\u05D9\u05E4\u05D9.',
+'prompting-expect-title':'\u05E6\u05D9\u05E4\u05D9\u05D5\u05EA','prompting-expect-desc':'\u05D0\u05D9\u05DA \u05D4\u05EA\u05D2\u05D5\u05D1\u05D4 \u05E6\u05E8\u05D9\u05DB\u05D4 \u05DC\u05D4\u05D9\u05E8\u05D0\u05D5\u05EA? \u05D0\u05D5\u05E8\u05DA, \u05E4\u05D5\u05E8\u05DE\u05D8, \u05E1\u05D2\u05E0\u05D5\u05DF, \u05D8\u05D5\u05DF. \u05D3\u05D5\u05D2\u05DE\u05D4: "\u05D1\u05E4\u05D5\u05E8\u05DE\u05D8 \u05D8\u05D1\u05DC\u05D4," "\u05E2\u05D3 200 \u05DE\u05D9\u05DC\u05D9\u05DD."',
+'prompting-tip1':'<strong>\u05D8\u05D9\u05E4 \u05D7\u05E9\u05D5\u05D1:</strong> \u05E1\u05D3\u05E8 \u05D4\u05DE\u05D9\u05DC\u05D9\u05DD \u05DE\u05E9\u05E0\u05D4! \u05D4\u05D7\u05DC\u05E7\u05D9\u05DD \u05D4\u05DE\u05D0\u05D5\u05D7\u05E8\u05D9\u05DD \u05D1\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 \u05DE\u05E7\u05D1\u05DC\u05D9\u05DD \u05D9\u05D5\u05EA\u05E8 \u05D3\u05D2\u05E9. \u05D0\u05DD \u05D0\u05EA\u05DD \u05E8\u05D5\u05E6\u05D9\u05DD \u05E9-Copilot \u05D9\u05E9\u05EA\u05DE\u05E9 \u05D1\u05E7\u05D5\u05D1\u05E5 \u05E1\u05E4\u05E6\u05D9\u05E4\u05D9, \u05E9\u05D9\u05DE\u05D5 \u05D0\u05EA \u05D4\u05D4\u05E4\u05E0\u05D9\u05D9\u05D4 \u05D1\u05E1\u05D5\u05E3.',
+'prompting-tip2':'<strong>\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 \u05E4\u05E8\u05E1\u05D5\u05E0\u05D4:</strong> \u05E0\u05E1\u05D5 \u05DC\u05D4\u05E7\u05E6\u05D5\u05EA \u05DC-Copilot \u05EA\u05E4\u05E7\u05D9\u05D3. \u05DC\u05DE\u05E9\u05DC: "\u05DB\u05DE\u05EA\u05D5\u05D3\u05D5\u05DC\u05D5\u05D2 \u05DE\u05D7\u05E7\u05E8 \u05DE\u05D5\u05DE\u05D7\u05D4..." &mdash; \u05D6\u05D4 \u05E2\u05D5\u05D6\u05E8 \u05DC\u05DB\u05D5\u05D5\u05DF \u05D0\u05EA \u05D4\u05D8\u05D5\u05DF \u05D5\u05D4\u05E2\u05D5\u05DE\u05E7.',
+'prompting-warning':'<strong>\u05EA\u05DE\u05D9\u05D3 \u05D5\u05D3\u05D0\u05D5 \u05D0\u05EA \u05D4\u05E4\u05DC\u05D8!</strong> Copilot \u05D4\u05D5\u05D0 \u05E2\u05D5\u05D6\u05E8, \u05DC\u05D0 \u05EA\u05D7\u05DC\u05D9\u05E3 \u05DC\u05E9\u05D9\u05E7\u05D5\u05DC \u05D3\u05E2\u05EA \u05DE\u05E7\u05E6\u05D5\u05E2\u05D9. \u05D1\u05D3\u05E7\u05D5 \u05D3\u05D9\u05D5\u05E7, \u05E6\u05D9\u05D8\u05D5\u05D8\u05D9\u05DD \u05D5\u05DE\u05E7\u05D5\u05E8\u05D5\u05EA.',
+'chat-title':'Copilot Chat &mdash; \u05DE\u05E8\u05DB\u05D6 \u05D4\u05E4\u05D9\u05E7\u05D5\u05D3 \u05E9\u05DC\u05DB\u05DD',
+'chat-desc':'Copilot Chat (\u05D1-microsoft365.com/copilot) \u05D4\u05D5\u05D0 \u05DE\u05DE\u05E9\u05E7 \u05D4\u05E6\'\u05D0\u05D8 \u05D4\u05DE\u05E8\u05DB\u05D6\u05D9. \u05D1\u05DE\u05E6\u05D1 <strong>Work</strong> \u05D4\u05D5\u05D0 \u05E0\u05D9\u05D2\u05E9 \u05DC\u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05D4\u05D0\u05E8\u05D2\u05D5\u05E0\u05D9\u05D9\u05DD. \u05D1\u05DE\u05E6\u05D1 <strong>Web</strong> \u05D4\u05D5\u05D0 \u05DE\u05D7\u05E4\u05E9 \u05D1\u05D0\u05D9\u05E0\u05D8\u05E8\u05E0\u05D8. \u05D4\u05E4\u05E0\u05D5 \u05DC\u05E7\u05D1\u05E6\u05D9\u05DD \u05D1\u05D0\u05DE\u05E6\u05E2\u05D5\u05EA <strong>/</strong>.',
+'chat-cap-title':'\u05D9\u05DB\u05D5\u05DC\u05D5\u05EA \u05DE\u05E8\u05DB\u05D6\u05D9\u05D5\u05EA','chat-cap-desc':'\u05E1\u05D9\u05DB\u05D5\u05DD \u05D0\u05D9\u05DE\u05D9\u05D9\u05DC\u05D9\u05DD \u05D5\u05E7\u05D1\u05E6\u05D9\u05DD | \u05D7\u05D9\u05E4\u05D5\u05E9 \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05D0\u05E8\u05D2\u05D5\u05E0\u05D9\u05D9\u05DD | \u05D9\u05E6\u05D9\u05E8\u05EA \u05EA\u05D5\u05DB\u05DF | \u05D7\u05D9\u05E4\u05D5\u05E9 \u05D1\u05D0\u05D9\u05E0\u05D8\u05E8\u05E0\u05D8 | \u05D9\u05E6\u05D9\u05E8\u05EA \u05E7\u05D1\u05E6\u05D9 Word/Excel/PowerPoint \u05DE\u05D4\u05E6\'\u05D0\u05D8 | \u05D1\u05D5\u05E8\u05E8 \u05DE\u05D5\u05D3\u05DC\u05D9\u05DD \u05E2\u05DD GPT-5.2',
+'chat-p1-label':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05E1\u05D9\u05DB\u05D5\u05DD \u05D0\u05E8\u05D2\u05D5\u05E0\u05D9','chat-p1':'\u05E1\u05DB\u05DD \u05D0\u05EA \u05DB\u05DC \u05D4\u05D0\u05D9\u05DE\u05D9\u05D9\u05DC\u05D9\u05DD \u05E9\u05E7\u05D9\u05D1\u05DC\u05EA\u05D9 \u05D4\u05E9\u05D1\u05D5\u05E2 \u05D1\u05E0\u05D5\u05D2\u05E2 \u05DC-[\u05E9\u05DD \u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05DE\u05D7\u05E7\u05E8] \u05D5\u05E8\u05E9\u05D5\u05DD \u05D0\u05EA \u05E4\u05E8\u05D9\u05D8\u05D9 \u05D4\u05E4\u05E2\u05D5\u05DC\u05D4 \u05D5\u05D4\u05DE\u05D5\u05E2\u05D3\u05D9\u05DD.',
+'chat-p2-label':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05D7\u05D9\u05E4\u05D5\u05E9 \u05DE\u05E1\u05DE\u05DB\u05D9\u05DD','chat-p2':'\u05DE\u05E6\u05D0 \u05D0\u05EA \u05DB\u05DC \u05D4\u05DE\u05E1\u05DE\u05DB\u05D9\u05DD \u05D1-SharePoint \u05E9\u05E7\u05E9\u05D5\u05E8\u05D9\u05DD \u05DC-[\u05E0\u05D5\u05E9\u05D0] \u05D5\u05E1\u05E4\u05E7 \u05E1\u05D9\u05DB\u05D5\u05DD \u05E7\u05E6\u05E8 \u05DC\u05DB\u05DC \u05D0\u05D7\u05D3, \u05E2\u05DD \u05D4\u05D3\u05D2\u05E9\u05EA \u05D4\u05E2\u05D3\u05DB\u05D5\u05E0\u05D9\u05DD \u05D4\u05D0\u05D7\u05E8\u05D5\u05E0\u05D9\u05DD.',
+'chat-p3-label':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05D4\u05DB\u05E0\u05D4 \u05DC\u05E4\u05D2\u05D9\u05E9\u05D4','chat-p3':'\u05E2\u05D6\u05D5\u05E8 \u05DC\u05D9 \u05DC\u05D4\u05EA\u05DB\u05D5\u05E0\u05DF \u05DC\u05E4\u05D2\u05D9\u05E9\u05D4 \u05E9\u05DC\u05D9 \u05E2\u05DD [\u05E9\u05DD/\u05E6\u05D5\u05D5\u05EA] \u05DE\u05D7\u05E8. \u05E1\u05DB\u05DD \u05D0\u05EA \u05D7\u05D9\u05DC\u05D5\u05E4\u05D9 \u05D4\u05D0\u05D9\u05DE\u05D9\u05D9\u05DC\u05D9\u05DD \u05D4\u05D0\u05D7\u05E8\u05D5\u05E0\u05D9\u05DD, \u05DE\u05E1\u05DE\u05DB\u05D9\u05DD \u05DE\u05E9\u05D5\u05EA\u05E4\u05D9\u05DD, \u05D5\u05D4\u05E2\u05E8\u05D5\u05EA \u05DE\u05D4\u05E4\u05D2\u05D9\u05E9\u05D4 \u05D4\u05D0\u05D7\u05E8\u05D5\u05E0\u05D4.',
+'chat-p4-label':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05D9\u05E6\u05D9\u05E8\u05EA \u05DE\u05E1\u05DE\u05DA \u05DE\u05D4\u05E6\'\u05D0\u05D8','chat-p4':'\u05E6\u05D5\u05E8 \u05DE\u05E1\u05DE\u05DA Word \u05E2\u05DD \u05DE\u05EA\u05D0\u05E8 \u05E1\u05E7\u05D9\u05E8\u05EA \u05E1\u05E4\u05E8\u05D5\u05EA \u05D1\u05E0\u05D5\u05E9\u05D0 [\u05E0\u05D5\u05E9\u05D0]. \u05DB\u05DC\u05D5\u05DC \u05E1\u05E2\u05D9\u05E4\u05D9\u05DD \u05DC: \u05DE\u05D1\u05D5\u05D0, \u05DE\u05E1\u05D2\u05E8\u05EA \u05EA\u05D9\u05D0\u05D5\u05E8\u05D8\u05D9\u05EA, \u05E1\u05E7\u05D9\u05E8\u05EA \u05DE\u05EA\u05D5\u05D3\u05D5\u05DC\u05D5\u05D2\u05D9\u05D4, \u05DE\u05DE\u05E6\u05D0\u05D9\u05DD \u05E2\u05D9\u05E7\u05E8\u05D9\u05D9\u05DD, \u05D5\u05E4\u05E2\u05E8\u05D9\u05DD.',
+'chat-tip':'<strong>\u05D7\u05D3\u05E9!</strong> \u05DB\u05E2\u05EA \u05E0\u05D9\u05EA\u05DF \u05DC\u05D7\u05E4\u05E9 \u05D1\u05D4\u05D9\u05E1\u05D8\u05D5\u05E8\u05D9\u05D9\u05EA \u05D4\u05E9\u05D9\u05D7\u05D5\u05EA \u05E9\u05DC\u05DB\u05DD \u05D1-Copilot, \u05DB\u05D5\u05DC\u05DC \u05E6\'\u05D0\u05D8\u05D9\u05DD \u05DE\u05DE\u05D7\u05D1\u05E8\u05D5\u05EA, \u05E1\u05D5\u05DB\u05E0\u05D9\u05DD \u05D5\u05D4\u05DE\u05DE\u05E9\u05E7 \u05D4\u05E8\u05D0\u05E9\u05D9.',
+'footer-credit':'<strong>\u05E0\u05D1\u05E0\u05D4 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05EA\u05D5\u05DD \u05D4\u05D2\u05DC\u05E2\u05D3\u05D9</strong> \u05D1\u05E1\u05D9\u05D5\u05E2 <strong>Claude Code</strong> \u05DE\u05D1\u05D9\u05EA Anthropic',
+'footer-guide-meta':'\u05DE\u05D3\u05E8\u05D9\u05DA \u05D4\u05D3\u05E8\u05DB\u05D4 Microsoft 365 Copilot \u05DC\u05D7\u05D5\u05E7\u05E8\u05D9\u05DD \u05D0\u05E7\u05D3\u05DE\u05D9\u05D9\u05DD | \u05DE\u05E8\u05E5 2026',
+'footer-legal-title':'\u05D4\u05E6\u05D4\u05E8\u05EA \u05D0\u05D7\u05E8\u05D9\u05D5\u05EA \u05DE\u05E9\u05E4\u05D8\u05D9\u05EA',
+'footer-legal-1':'\u05DE\u05D3\u05E8\u05D9\u05DA \u05D6\u05D4 \u05D4\u05D5\u05D0 \u05DE\u05E9\u05D0\u05D1 \u05D7\u05D9\u05E0\u05D5\u05DB\u05D9 \u05E2\u05E6\u05DE\u05D0\u05D9 \u05E9\u05E0\u05D5\u05E6\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05EA\u05D5\u05DD \u05D4\u05D2\u05DC\u05E2\u05D3\u05D9. \u05D0\u05D9\u05E0\u05D5 \u05E7\u05E9\u05D5\u05E8, \u05DE\u05D0\u05D5\u05E9\u05E8, \u05DE\u05DE\u05D5\u05DE\u05DF, \u05D0\u05D5 \u05DE\u05D7\u05D5\u05D1\u05E8 \u05D1\u05DB\u05DC \u05D3\u05E8\u05DA \u05E8\u05E9\u05DE\u05D9\u05EA \u05DC\u05D7\u05D1\u05E8\u05EA Microsoft Corporation. \u05DB\u05DC \u05E9\u05DE\u05D5\u05EA \u05D4\u05DE\u05D5\u05E6\u05E8\u05D9\u05DD, \u05D4\u05DC\u05D5\u05D2\u05D5\u05D0\u05D9\u05DD \u05D5\u05E1\u05D9\u05DE\u05E0\u05D9 \u05D4\u05DE\u05E1\u05D7\u05E8 \u05D4\u05E7\u05E9\u05D5\u05E8\u05D9\u05DD \u05D4\u05DD \u05E8\u05DB\u05D5\u05E9\u05D4 \u05E9\u05DC Microsoft.',
+'footer-legal-2':'\u05D4\u05EA\u05D5\u05DB\u05DF \u05DE\u05D1\u05D5\u05E1\u05E1 \u05E2\u05DC \u05D7\u05D5\u05DE\u05E8\u05D9\u05DD \u05E9\u05DC Microsoft \u05D4\u05D6\u05DE\u05D9\u05E0\u05D9\u05DD \u05DC\u05E6\u05D9\u05D1\u05D5\u05E8 \u05D5\u05DE\u05E1\u05D5\u05E4\u05E7 "\u05DB\u05DE\u05D5 \u05E9\u05D4\u05D5\u05D0" \u05DC\u05DE\u05D8\u05E8\u05D5\u05EA \u05D7\u05D9\u05E0\u05D5\u05DB\u05D9\u05D5\u05EA \u05D5\u05DE\u05D9\u05D3\u05E2\u05D9\u05D5\u05EA \u05D1\u05DC\u05D1\u05D3, \u05DC\u05DC\u05D0 \u05DB\u05DC \u05D0\u05D7\u05E8\u05D9\u05D5\u05EA.',
+'footer-legal-3':'\u05D4\u05E9\u05D9\u05DE\u05D5\u05E9 \u05D1-Microsoft 365 Copilot \u05D5\u05DB\u05DC \u05E4\u05E2\u05D5\u05DC\u05D4 \u05D4\u05E0\u05E0\u05E7\u05D8\u05EA \u05E2\u05DC \u05D1\u05E1\u05D9\u05E1 \u05DE\u05D9\u05D3\u05E2 \u05D6\u05D4 \u05D4\u05DD \u05D1\u05D0\u05D7\u05E8\u05D9\u05D5\u05EA \u05D4\u05DE\u05E9\u05EA\u05DE\u05E9 \u05D1\u05DC\u05D1\u05D3. \u05D4\u05DE\u05D7\u05D1\u05E8 \u05DC\u05D0 \u05D9\u05D9\u05E9\u05D0 \u05D1\u05D0\u05D7\u05E8\u05D9\u05D5\u05EA \u05DC\u05DB\u05DC \u05E0\u05D6\u05E7 \u05D9\u05E9\u05D9\u05E8, \u05E2\u05E7\u05D9\u05E3, \u05DE\u05E7\u05E8\u05D9, \u05EA\u05D5\u05E6\u05D0\u05EA\u05D9, \u05DE\u05D9\u05D5\u05D7\u05D3 \u05D0\u05D5 \u05DE\u05D5\u05E4\u05EA\u05D9.',
+'footer-legal-4':'\u05DE\u05D3\u05E8\u05D9\u05DA \u05D6\u05D4 \u05D0\u05D9\u05E0\u05D5 \u05DE\u05D4\u05D5\u05D5\u05D4 \u05D9\u05D9\u05E2\u05D5\u05E5 \u05DE\u05E7\u05E6\u05D5\u05E2\u05D9, \u05DE\u05E9\u05E4\u05D8\u05D9 \u05D0\u05D5 \u05D8\u05DB\u05E0\u05D9. \u05E2\u05DC \u05D4\u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD \u05DC\u05D4\u05EA\u05D9\u05D9\u05E2\u05E5 \u05E2\u05DD \u05D4\u05EA\u05D9\u05E2\u05D5\u05D3 \u05D4\u05E8\u05E9\u05DE\u05D9 \u05E9\u05DC Microsoft \u05D5\u05DE\u05E0\u05D4\u05DC\u05D9 \u05D4-IT \u05D1\u05D0\u05E8\u05D2\u05D5\u05E0\u05DD.',
+'footer-a11y-title':'\u05D4\u05E6\u05D4\u05E8\u05EA \u05E0\u05D2\u05D9\u05E9\u05D5\u05EA',
+'footer-a11y-1':'\u05D0\u05EA\u05E8 \u05D6\u05D4 \u05E2\u05D5\u05DE\u05D3 \u05D1\u05D3\u05E8\u05D9\u05E9\u05D5\u05EA \u05EA\u05E7\u05DF \u05D9\u05E9\u05E8\u05D0\u05DC\u05D9 \u05EA"\u05D9 5568, \u05D4\u05DE\u05D1\u05D5\u05E1\u05E1 \u05E2\u05DC \u05D4\u05E0\u05D7\u05D9\u05D5\u05EA WCAG 2.0 \u05D1\u05E8\u05DE\u05D4 AA, \u05DB\u05E0\u05D3\u05E8\u05E9 \u05D1\u05EA\u05E7\u05E0\u05D4 35 \u05DC\u05EA\u05E7\u05E0\u05D5\u05EA \u05E9\u05D5\u05D5\u05D9\u05D5\u05DF \u05D6\u05DB\u05D5\u05D9\u05D5\u05EA \u05DC\u05D0\u05E0\u05E9\u05D9\u05DD \u05E2\u05DD \u05DE\u05D5\u05D2\u05D1\u05DC\u05D5\u05EA (2013).',
+'footer-a11y-2':'\u05D0\u05DD \u05E0\u05EA\u05E7\u05DC\u05EA\u05DD \u05D1\u05D1\u05E2\u05D9\u05D9\u05EA \u05E0\u05D2\u05D9\u05E9\u05D5\u05EA \u05D1\u05D0\u05EA\u05E8, \u05D0\u05E0\u05D0 \u05E4\u05E0\u05D5 \u05D0\u05DC\u05D9\u05E0\u05D5:',
+'footer-a11y-coord':'\u05E8\u05DB\u05D6 \u05E0\u05D2\u05D9\u05E9\u05D5\u05EA:',
+'copy':'\u05D4\u05E2\u05EA\u05E7',
+'word-title':'Copilot \u05D1-Word &mdash; \u05DB\u05EA\u05D9\u05D1\u05D4 \u05D0\u05E7\u05D3\u05DE\u05D9\u05EA',
+'word-desc':'Copilot \u05D1-Word \u05E2\u05D5\u05D6\u05E8 \u05DC\u05D9\u05E6\u05D5\u05E8, \u05E9\u05DB\u05EA\u05D5\u05D1, \u05E1\u05D9\u05DB\u05D5\u05DD \u05D5\u05E2\u05E8\u05D9\u05DB\u05EA \u05DE\u05E1\u05DE\u05DB\u05D9\u05DD. <strong>\u05DE\u05E6\u05D1 Agent</strong> \u05D4\u05D7\u05D3\u05E9 \u05DE\u05D0\u05E4\u05E9\u05E8 \u05E2\u05E8\u05D9\u05DB\u05D5\u05EA \u05E8\u05D1-\u05E9\u05DC\u05D1\u05D9\u05D5\u05EA \u05E2\u05DC \u05E4\u05E0\u05D9 \u05D4\u05DE\u05E1\u05DE\u05DA \u05DB\u05D5\u05DC\u05D5.',
+'word-cap-title':'\u05D9\u05DB\u05D5\u05DC\u05D5\u05EA \u05DE\u05E8\u05DB\u05D6\u05D9\u05D5\u05EA','word-cap-desc':'\u05D8\u05D9\u05D5\u05D8\u05D4 \u05DE\u05D0\u05E4\u05E1 | \u05E9\u05DB\u05EA\u05D5\u05D1 \u05D5\u05E0\u05D9\u05E1\u05D5\u05D7 | \u05E1\u05D9\u05DB\u05D5\u05DD \u05DE\u05E1\u05DE\u05DB\u05D9\u05DD | \u05E6\u05D9\u05D8\u05D5\u05D8\u05D9\u05DD \u05D5\u05DE\u05E7\u05D5\u05E8\u05D5\u05EA | \u05E9\u05D0\u05DC\u05D5\u05EA \u05E2\u05DC \u05EA\u05D5\u05DB\u05DF | \u05D4\u05DE\u05E8\u05EA \u05D8\u05E7\u05E1\u05D8 \u05DC\u05D8\u05D1\u05DC\u05D0\u05D5\u05EA | \u05DE\u05E6\u05D1 Agent',
+'word-p1-label':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05EA\u05E7\u05E6\u05D9\u05E8 \u05DE\u05D7\u05E7\u05E8','word-p1':'\u05DB\u05EA\u05D5\u05D1 \u05EA\u05E7\u05E6\u05D9\u05E8 \u05D0\u05E7\u05D3\u05DE\u05D9 (250 \u05DE\u05D9\u05DC\u05D9\u05DD \u05DC\u05DB\u05DC \u05D4\u05D9\u05D5\u05EA\u05E8) \u05DC\u05DE\u05D0\u05DE\u05E8 \u05DE\u05D7\u05E7\u05E8 \u05D1\u05E0\u05D5\u05E9\u05D0 [\u05E0\u05D5\u05E9\u05D0]. \u05DE\u05D1\u05E0\u05D4: \u05E8\u05E7\u05E2, \u05DE\u05D8\u05E8\u05D4, \u05E9\u05D9\u05D8\u05D5\u05EA, \u05DE\u05DE\u05E6\u05D0\u05D9\u05DD \u05D5\u05DE\u05E1\u05E7\u05E0\u05D4. \u05D8\u05D5\u05DF \u05D0\u05E7\u05D3\u05DE\u05D9 \u05E8\u05E9\u05DE\u05D9.',
+'word-p2-label':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05E9\u05D9\u05E4\u05D5\u05E8 \u05DB\u05EA\u05D9\u05D1\u05D4','word-p2':'\u05E9\u05DB\u05EA\u05D1 \u05D0\u05EA \u05D4\u05E4\u05E1\u05E7\u05D4 \u05DC\u05E9\u05D9\u05E4\u05D5\u05E8 \u05D1\u05D4\u05D9\u05E8\u05D5\u05EA \u05D5\u05D6\u05E8\u05D9\u05DE\u05D4 \u05D0\u05E7\u05D3\u05DE\u05D9\u05EA. \u05E9\u05DE\u05D5\u05E8 \u05E2\u05DC \u05D4\u05DE\u05E9\u05DE\u05E2\u05D5\u05EA \u05D0\u05DA \u05D4\u05E9\u05EA\u05DE\u05E9 \u05D1\u05D8\u05E8\u05DE\u05D9\u05E0\u05D5\u05DC\u05D5\u05D2\u05D9\u05D4 \u05DE\u05D3\u05D5\u05D9\u05E7\u05EA \u05D9\u05D5\u05EA\u05E8 \u05D5\u05DE\u05E2\u05D1\u05E8\u05D9\u05DD \u05D7\u05D6\u05E7\u05D9\u05DD. \u05D8\u05D5\u05DF \u05D0\u05E7\u05D3\u05DE\u05D9 \u05E8\u05E9\u05DE\u05D9.',
+'word-p3-label':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05E1\u05D9\u05DB\u05D5\u05DD \u05DE\u05D5\u05D1\u05E0\u05D4','word-p3':'\u05E1\u05DB\u05DD \u05DE\u05E1\u05DE\u05DA \u05D6\u05D4 \u05D1\u05E4\u05D5\u05E8\u05DE\u05D8 \u05DE\u05D5\u05D1\u05E0\u05D4: (1) \u05E9\u05D0\u05DC\u05EA \u05DE\u05D7\u05E7\u05E8, (2) \u05DE\u05EA\u05D5\u05D3\u05D5\u05DC\u05D5\u05D2\u05D9\u05D4, (3) \u05DE\u05DE\u05E6\u05D0\u05D9\u05DD \u05E2\u05D9\u05E7\u05E8\u05D9\u05D9\u05DD, (4) \u05DE\u05D2\u05D1\u05DC\u05D5\u05EA, (5) \u05D4\u05E9\u05DC\u05DB\u05D5\u05EA. 2-3 \u05DE\u05E9\u05E4\u05D8\u05D9\u05DD \u05DC\u05DB\u05DC \u05E1\u05E2\u05D9\u05E3.',
+'word-p4-label':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05D8\u05D9\u05D5\u05D8\u05EA \u05E1\u05E7\u05D9\u05E8\u05EA \u05E1\u05E4\u05E8\u05D5\u05EA','word-p4':'\u05E2\u05DC \u05D1\u05E1\u05D9\u05E1 /[\u05E9\u05DD \u05E7\u05D5\u05D1\u05E5], \u05DB\u05EA\u05D5\u05D1 \u05D8\u05D9\u05D5\u05D8\u05EA \u05E1\u05E7\u05D9\u05E8\u05EA \u05E1\u05E4\u05E8\u05D5\u05EA \u05E9\u05DE\u05E1\u05E0\u05EA\u05D6\u05EA \u05E0\u05D5\u05E9\u05D0\u05D9\u05DD \u05DE\u05E8\u05DB\u05D6\u05D9\u05D9\u05DD, \u05DE\u05D6\u05D4\u05D4 \u05EA\u05D7\u05D5\u05DE\u05D9 \u05D4\u05E1\u05DB\u05DE\u05D4 \u05D5\u05DE\u05D7\u05DC\u05D5\u05E7\u05EA, \u05D5\u05DE\u05D3\u05D2\u05D9\u05E9\u05D4 \u05E4\u05E2\u05E8\u05D9\u05DD.',
+'word-p5-label':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05D4\u05E6\u05E2\u05EA \u05DE\u05D7\u05E7\u05E8','word-p5':'\u05DB\u05EA\u05D5\u05D1 \u05DE\u05EA\u05D0\u05E8 \u05DC\u05D4\u05E6\u05E2\u05EA \u05DE\u05D7\u05E7\u05E8 \u05D1\u05E0\u05D5\u05E9\u05D0 [\u05E0\u05D5\u05E9\u05D0]. \u05DB\u05DC\u05D5\u05DC: \u05DB\u05D5\u05EA\u05E8\u05EA, \u05E9\u05D0\u05DC\u05D5\u05EA \u05DE\u05D7\u05E7\u05E8, \u05D7\u05E9\u05D9\u05D1\u05D5\u05EA, \u05DE\u05E1\u05D2\u05E8\u05EA \u05EA\u05D9\u05D0\u05D5\u05E8\u05D8\u05D9\u05EA, \u05DE\u05EA\u05D5\u05D3\u05D5\u05DC\u05D5\u05D2\u05D9\u05D4, \u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05E6\u05E4\u05D5\u05D9\u05D5\u05EA, \u05DC\u05D5\u05D7 \u05D6\u05DE\u05E0\u05D9\u05DD \u05D5\u05EA\u05E7\u05E6\u05D9\u05D1. \u05E7\u05D4\u05DC \u05D9\u05E2\u05D3: \u05D5\u05E2\u05D3\u05EA \u05DE\u05E2\u05E0\u05E7\u05D9\u05DD.',
+'word-p6-label':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05DE\u05E6\u05D1 Agent (\u05E2\u05E8\u05D9\u05DB\u05EA \u05DE\u05E1\u05DE\u05DA \u05DE\u05DC\u05D0\u05D4)','word-p6':'\u05E1\u05E7\u05D5\u05E8 \u05DE\u05E1\u05DE\u05DA \u05D6\u05D4 \u05D1\u05DE\u05DC\u05D5\u05D0\u05D5 \u05D5\u05E9\u05E4\u05E8: \u05EA\u05E7\u05DF \u05E9\u05D2\u05D9\u05D0\u05D5\u05EA, \u05E9\u05E4\u05E8 \u05D1\u05D4\u05D9\u05E8\u05D5\u05EA, \u05D5\u05D3\u05D0 \u05E2\u05D9\u05E6\u05D5\u05D1 \u05E6\u05D9\u05D8\u05D5\u05D8\u05D9\u05DD \u05E2\u05E7\u05D1\u05D9, \u05D4\u05D5\u05E1\u05E3 \u05DE\u05E9\u05E4\u05D8\u05D9 \u05DE\u05E2\u05D1\u05E8, \u05D5\u05E6\u05D5\u05E8 \u05EA\u05D5\u05DB\u05DF \u05E2\u05E0\u05D9\u05D9\u05E0\u05D9\u05DD. \u05D4\u05E8\u05D0\u05D4 \u05DC\u05D9 \u05DB\u05DC \u05E9\u05D9\u05E0\u05D5\u05D9.',
+'word-tip':'<strong>\u05E6\u05D9\u05D8\u05D5\u05D8\u05D9\u05DD:</strong> Copilot \u05D1-Word \u05D9\u05DB\u05D5\u05DC \u05DC\u05D4\u05D5\u05E1\u05D9\u05E3 \u05E6\u05D9\u05D8\u05D5\u05D8\u05D9\u05DD \u05D1\u05EA\u05D5\u05DA \u05D4\u05D8\u05E7\u05E1\u05D8 \u05D5\u05E8\u05E9\u05D9\u05DE\u05EA \u05DE\u05E7\u05D5\u05E8\u05D5\u05EA. \u05EA\u05DE\u05D9\u05D3 \u05D5\u05D3\u05D0\u05D5 \u05D0\u05EA \u05D4\u05D3\u05D9\u05D5\u05E7!',
+'quickref-title':'\u05E2\u05D9\u05D5\u05DF \u05DE\u05D4\u05D9\u05E8 &mdash; \u05D8\u05D9\u05E4\u05D9\u05DD \u05D5\u05E7\u05D9\u05E6\u05D5\u05E8\u05D9\u05DD',
+'qr-card1-title':'/ &mdash; \u05D4\u05E4\u05E0\u05D9\u05D9\u05D4 \u05DC\u05E7\u05D5\u05D1\u05E5','qr-card1-desc':'\u05D4\u05E7\u05DC\u05D9\u05D3\u05D5 <strong>/</strong> \u05D1\u05DB\u05DC \u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 \u05DB\u05D3\u05D9 \u05DC\u05D1\u05D7\u05D5\u05E8 \u05E7\u05D5\u05D1\u05E5 \u05E1\u05E4\u05E6\u05D9\u05E4\u05D9. \u05E2\u05D5\u05D1\u05D3 \u05E2\u05DD Word, PowerPoint, Excel, SharePoint \u05D5-OneNote.',
+'qr-card2-title':'\u05D7\u05D6\u05E8\u05D5 \u05D5\u05E9\u05E4\u05E8\u05D5','qr-card2-desc':'\u05D0\u05DC \u05EA\u05E1\u05EA\u05E4\u05E7\u05D5 \u05D1\u05EA\u05D2\u05D5\u05D1\u05D4 \u05D4\u05E8\u05D0\u05E9\u05D5\u05E0\u05D4. \u05D1\u05E7\u05E9\u05D5 \u05DE-Copilot \u05DC\u05E9\u05E4\u05E8, \u05DC\u05E7\u05E6\u05E8, \u05DC\u05D4\u05E8\u05D7\u05D9\u05D1 \u05D0\u05D5 \u05DC\u05E9\u05E0\u05D5\u05EA \u05D8\u05D5\u05DF &mdash; \u05DB\u05DC \u05E9\u05D9\u05D7\u05D4 \u05D4\u05D9\u05D0 \u05EA\u05D4\u05DC\u05D9\u05DA \u05D0\u05D9\u05D8\u05E8\u05D8\u05D9\u05D1\u05D9.',
+'qr-card3-title':'\u05D3\u05E4\u05D9\u05DD &mdash; \u05E9\u05DE\u05E8\u05D5 \u05E4\u05DC\u05D8 \u05D8\u05D5\u05D1','qr-card3-desc':'\u05EA\u05D2\u05D5\u05D1\u05D4 \u05DE\u05E6\u05D5\u05D9\u05E0\u05EA? \u05D4\u05E4\u05DB\u05D5 \u05D0\u05D5\u05EA\u05D4 \u05DC\u05D3\u05E3 &mdash; \u05EA\u05D5\u05DB\u05DC\u05D5 \u05DC\u05E2\u05E8\u05D5\u05DA, \u05DC\u05D4\u05E8\u05D7\u05D9\u05D1 \u05D5\u05DC\u05E9\u05EA\u05E3 \u05E2\u05DD \u05D0\u05D7\u05E8\u05D9\u05DD.',
+'qr-card4-title':'\u05DE\u05D7\u05D1\u05E8\u05D5\u05EA &mdash; \u05DC\u05DB\u05DC \u05E4\u05E8\u05D5\u05D9\u05E7\u05D8','qr-card4-desc':'\u05E6\u05E8\u05D5 \u05DE\u05D7\u05D1\u05E8\u05EA \u05DC\u05DB\u05DC \u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05DE\u05D7\u05E7\u05E8. \u05D0\u05E1\u05E4\u05D5 \u05D7\u05D5\u05DE\u05E8\u05D9\u05DD \u05D5\u05E9\u05D0\u05DC\u05D5 \u05E9\u05D0\u05DC\u05D5\u05EA \u05DE\u05DE\u05D5\u05E7\u05D3\u05D5\u05EA.',
+'qr-card5-title':'\u05E4\u05E8\u05E1\u05D5\u05E0\u05D5\u05EA','qr-card5-desc':'\u05D4\u05E7\u05E6\u05D5 \u05EA\u05E4\u05E7\u05D9\u05D3: "\u05DB\u05D9\u05D5\u05E2\u05E5 \u05E1\u05D8\u05D8\u05D9\u05E1\u05D8\u05D9...", "\u05DB\u05E2\u05D5\u05E8\u05DA \u05DB\u05EA\u05D1 \u05E2\u05EA..." &mdash; \u05D4\u05EA\u05D2\u05D5\u05D1\u05D5\u05EA \u05D9\u05D4\u05D9\u05D5 \u05DE\u05DE\u05D5\u05E7\u05D3\u05D5\u05EA \u05D9\u05D5\u05EA\u05E8.',
+'qr-card6-title':'\u05EA\u05DE\u05D9\u05D3 \u05D5\u05D3\u05D0\u05D5!','qr-card6-desc':'\u05D1\u05D3\u05E7\u05D5 \u05E2\u05D5\u05D1\u05D3\u05D5\u05EA, \u05E6\u05D9\u05D8\u05D5\u05D8\u05D9\u05DD \u05D5\u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05E1\u05D8\u05D8\u05D9\u05E1\u05D8\u05D9\u05D5\u05EA \u05DC\u05E4\u05E0\u05D9 \u05E9\u05D9\u05DE\u05D5\u05E9. \u05D4\u05D0\u05D7\u05E8\u05D9\u05D5\u05EA \u05D4\u05DE\u05E7\u05E6\u05D5\u05E2\u05D9\u05EA \u05D4\u05D9\u05D0 \u05E9\u05DC\u05DB\u05DD.'
+};
+
+document.getElementById('btn-en').addEventListener('click', function() { setLanguage('en'); });
+document.getElementById('btn-he').addEventListener('click', function() { setLanguage('he'); });
+
+function setLanguage(lang) {
+  currentLang = lang;
+  var html = document.documentElement;
+  html.lang = lang;
+  html.dir = lang === 'he' ? 'rtl' : 'ltr';
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-he').classList.toggle('active', lang === 'he');
+  document.getElementById('btn-en').setAttribute('aria-pressed', lang === 'en');
+  document.getElementById('btn-he').setAttribute('aria-pressed', lang === 'he');
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (lang === 'he' && HE[key]) {
+      el.innerHTML = HE[key];
+    } else if (lang === 'en') {
+      var orig = el.getAttribute('data-original');
+      if (orig) el.innerHTML = orig;
+    }
+  });
+  try { localStorage.setItem('preferred-lang', lang); } catch(e) {}
+}
+try { if (localStorage.getItem('preferred-lang') === 'he') setLanguage('he'); } catch(e) {}
+</script>
+</body>
+</html>
