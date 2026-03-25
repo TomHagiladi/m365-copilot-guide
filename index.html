@@ -87,11 +87,52 @@
   .hero-diamond:nth-child(4) { bottom: 30%; right: 8%; width: 12px; height: 12px; }
   .hero-diamond:nth-child(5) { top: 45%; left: 5%; width: 10px; height: 10px; }
 
+  .hero-logo-link {
+    display: inline-block;
+    margin-bottom: 18px;
+    position: relative;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+  }
+  .hero-logo-link:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  }
+  .hero-logo-link:active { transform: translateY(-1px) scale(1.01); }
   .hero-logo {
-    max-width: 220px; height: auto; margin-bottom: 18px; position: relative;
+    max-width: 220px; height: auto; display: block;
     background: white; padding: 12px 18px; border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    transition: box-shadow 0.3s ease;
   }
+  .hero-logo-link:hover .hero-logo {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  }
+
+  .tom-link {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .tom-link:hover {
+    text-shadow: 0 0 12px rgba(255,255,255,0.5);
+  }
+  .tom-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width 0.3s ease;
+  }
+  .tom-link:hover::after { width: 100%; }
+  .site-footer .tom-link { color: #a5d67a; }
+  .site-footer .tom-link:hover { color: #c4f09a; text-shadow: 0 0 8px rgba(165,214,122,0.4); }
+  .site-footer .tom-link::after { background: #a5d67a; }
   .hero h1 { font-size: 2.5em; font-weight: 800; margin-bottom: 10px; position: relative; }
   .hero .subtitle { font-size: 1.2em; font-weight: 300; opacity: 0.92; margin-bottom: 8px; position: relative; }
   .hero .meta { font-size: 0.95em; opacity: 0.75; position: relative; }
@@ -307,7 +348,7 @@
   @media (max-width: 1024px) { .hero h1 { font-size: 2.1em; } }
   @media (max-width: 768px) {
     .hero h1 { font-size: 1.7em; } .hero { padding: 35px 16px; }
-    .hero-logo { max-width: 170px; } .feature-grid { grid-template-columns: 1fr; }
+    .hero-logo { max-width: 170px !important; } .feature-grid { grid-template-columns: 1fr; }
     .formula-items { flex-direction: column; } .nav-inner { gap: 4px; }
     .nav-btn { font-size: 0.78em; padding: 5px 10px; }
     .lang-toggle { top: 10px; right: 10px; }
@@ -316,7 +357,7 @@
   }
   @media (max-width: 480px) {
     .hero h1 { font-size: 1.4em; } .hero .subtitle { font-size: 1em; }
-    .hero-logo { max-width: 140px; } .section-header h2 { font-size: 1.25em; }
+    .hero-logo { max-width: 140px !important; } .section-header h2 { font-size: 1.25em; }
     .container { padding: 20px 14px; } .hero-diamond { display: none; }
   }
   @media print {
@@ -344,7 +385,9 @@
     <button class="lang-btn" id="btn-he" aria-pressed="false">HE</button>
   </div>
 
-  <img src="logo.png" alt="Tom Hagiladi — Empowering through AI" class="hero-logo">
+  <a href="https://linktr.ee/TomHagiladi" target="_blank" rel="noopener noreferrer" class="hero-logo-link" aria-label="Tom Hagiladi — visit my links">
+    <img src="logo.png" alt="Tom Hagiladi — Empowering through AI" class="hero-logo">
+  </a>
   <h1>Microsoft 365 Copilot</h1>
   <div class="subtitle" data-i18n="hero-subtitle">Training Companion Guide for Academic Researchers</div>
   <div class="meta" data-i18n="hero-meta">Live Seminar | March 2026</div>
@@ -594,12 +637,12 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-credit">
-      <p data-i18n="footer-credit"><strong>Built by Tom Hagiladi</strong> with the assistance of <strong>Claude Code</strong> by Anthropic</p>
+      <p data-i18n="footer-credit"><strong>Built by <a href="https://linktr.ee/TomHagiladi" target="_blank" rel="noopener noreferrer" class="tom-link">Tom Hagiladi</a></strong> with the assistance of <strong>Claude Code</strong> by Anthropic</p>
       <p data-i18n="footer-guide-meta">Microsoft 365 Copilot Training Guide for Academic Researchers | March 2026</p>
     </div>
     <div class="footer-section">
       <h3 data-i18n="footer-legal-title">Legal Disclaimer</h3>
-      <p data-i18n="footer-legal-1">This guide is an independent educational resource created by Tom Hagiladi. It is not affiliated with, endorsed by, sponsored by, or in any way officially connected with Microsoft Corporation or any of its subsidiaries or affiliates. "Microsoft 365 Copilot," "Microsoft," "Word," "Excel," "PowerPoint," "Outlook," "Teams," and all related product names, logos, and trademarks are the property of Microsoft Corporation.</p>
+      <p data-i18n="footer-legal-1">This guide is an independent educational resource created by <a href="https://linktr.ee/TomHagiladi" target="_blank" rel="noopener noreferrer" class="tom-link">Tom Hagiladi</a>. It is not affiliated with, endorsed by, sponsored by, or in any way officially connected with Microsoft Corporation or any of its subsidiaries or affiliates. "Microsoft 365 Copilot," "Microsoft," "Word," "Excel," "PowerPoint," "Outlook," "Teams," and all related product names, logos, and trademarks are the property of Microsoft Corporation.</p>
       <p data-i18n="footer-legal-2">The content is based on publicly available Microsoft documentation and materials, provided "as is" for educational and informational purposes only, without any warranty of any kind, express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
       <p data-i18n="footer-legal-3">Use of Microsoft 365 Copilot and any actions taken based on the information in this guide are entirely at the user's own risk and responsibility. The author shall not be liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising from the use of, or reliance on, any information provided herein.</p>
       <p data-i18n="footer-legal-4">This guide does not constitute professional, legal, or technical advice. Users should consult official Microsoft documentation and their organization's IT administrators for current information. Features, pricing, and availability are subject to change by Microsoft without notice.</p>
@@ -608,7 +651,7 @@
       <h3 data-i18n="footer-a11y-title">Accessibility Statement</h3>
       <p data-i18n="footer-a11y-1">This website complies with Israeli Standard SI 5568, based on WCAG 2.0 Level AA guidelines, as required by Regulation 35 of Israel's Equal Rights for Persons with Disabilities Regulations (2013).</p>
       <p data-i18n="footer-a11y-2">If you encounter any accessibility issues, please contact us:</p>
-      <p><strong data-i18n="footer-a11y-coord">Accessibility Coordinator:</strong> Tom Hagiladi<br><strong>Email:</strong> <a href="mailto:tomhagiladi@gmail.com">tomhagiladi@gmail.com</a></p>
+      <p><strong data-i18n="footer-a11y-coord">Accessibility Coordinator:</strong> <a href="https://linktr.ee/TomHagiladi" target="_blank" rel="noopener noreferrer" class="tom-link">Tom Hagiladi</a><br><strong>Email:</strong> <a href="mailto:tomhagiladi@gmail.com">tomhagiladi@gmail.com</a></p>
     </div>
   </div>
 </footer>
@@ -718,10 +761,10 @@ var HE = {
 'chat-p3-label':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05D4\u05DB\u05E0\u05D4 \u05DC\u05E4\u05D2\u05D9\u05E9\u05D4','chat-p3':'\u05E2\u05D6\u05D5\u05E8 \u05DC\u05D9 \u05DC\u05D4\u05EA\u05DB\u05D5\u05E0\u05DF \u05DC\u05E4\u05D2\u05D9\u05E9\u05D4 \u05E9\u05DC\u05D9 \u05E2\u05DD [\u05E9\u05DD/\u05E6\u05D5\u05D5\u05EA] \u05DE\u05D7\u05E8. \u05E1\u05DB\u05DD \u05D0\u05EA \u05D7\u05D9\u05DC\u05D5\u05E4\u05D9 \u05D4\u05D0\u05D9\u05DE\u05D9\u05D9\u05DC\u05D9\u05DD \u05D4\u05D0\u05D7\u05E8\u05D5\u05E0\u05D9\u05DD, \u05DE\u05E1\u05DE\u05DB\u05D9\u05DD \u05DE\u05E9\u05D5\u05EA\u05E4\u05D9\u05DD, \u05D5\u05D4\u05E2\u05E8\u05D5\u05EA \u05DE\u05D4\u05E4\u05D2\u05D9\u05E9\u05D4 \u05D4\u05D0\u05D7\u05E8\u05D5\u05E0\u05D4.',
 'chat-p4-label':'\u05E4\u05E8\u05D5\u05DE\u05E4\u05D8 &mdash; \u05D9\u05E6\u05D9\u05E8\u05EA \u05DE\u05E1\u05DE\u05DA \u05DE\u05D4\u05E6\'\u05D0\u05D8','chat-p4':'\u05E6\u05D5\u05E8 \u05DE\u05E1\u05DE\u05DA Word \u05E2\u05DD \u05DE\u05EA\u05D0\u05E8 \u05E1\u05E7\u05D9\u05E8\u05EA \u05E1\u05E4\u05E8\u05D5\u05EA \u05D1\u05E0\u05D5\u05E9\u05D0 [\u05E0\u05D5\u05E9\u05D0]. \u05DB\u05DC\u05D5\u05DC \u05E1\u05E2\u05D9\u05E4\u05D9\u05DD \u05DC: \u05DE\u05D1\u05D5\u05D0, \u05DE\u05E1\u05D2\u05E8\u05EA \u05EA\u05D9\u05D0\u05D5\u05E8\u05D8\u05D9\u05EA, \u05E1\u05E7\u05D9\u05E8\u05EA \u05DE\u05EA\u05D5\u05D3\u05D5\u05DC\u05D5\u05D2\u05D9\u05D4, \u05DE\u05DE\u05E6\u05D0\u05D9\u05DD \u05E2\u05D9\u05E7\u05E8\u05D9\u05D9\u05DD, \u05D5\u05E4\u05E2\u05E8\u05D9\u05DD.',
 'chat-tip':'<strong>\u05D7\u05D3\u05E9!</strong> \u05DB\u05E2\u05EA \u05E0\u05D9\u05EA\u05DF \u05DC\u05D7\u05E4\u05E9 \u05D1\u05D4\u05D9\u05E1\u05D8\u05D5\u05E8\u05D9\u05D9\u05EA \u05D4\u05E9\u05D9\u05D7\u05D5\u05EA \u05E9\u05DC\u05DB\u05DD \u05D1-Copilot, \u05DB\u05D5\u05DC\u05DC \u05E6\'\u05D0\u05D8\u05D9\u05DD \u05DE\u05DE\u05D7\u05D1\u05E8\u05D5\u05EA, \u05E1\u05D5\u05DB\u05E0\u05D9\u05DD \u05D5\u05D4\u05DE\u05DE\u05E9\u05E7 \u05D4\u05E8\u05D0\u05E9\u05D9.',
-'footer-credit':'<strong>\u05E0\u05D1\u05E0\u05D4 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05EA\u05D5\u05DD \u05D4\u05D2\u05DC\u05E2\u05D3\u05D9</strong> \u05D1\u05E1\u05D9\u05D5\u05E2 <strong>Claude Code</strong> \u05DE\u05D1\u05D9\u05EA Anthropic',
+'footer-credit':'<strong>\u05E0\u05D1\u05E0\u05D4 \u05E2\u05DC \u05D9\u05D3\u05D9 <a href="https://linktr.ee/TomHagiladi" target="_blank" rel="noopener noreferrer" class="tom-link">\u05EA\u05D5\u05DD \u05D4\u05D2\u05DC\u05E2\u05D3\u05D9</a></strong> \u05D1\u05E1\u05D9\u05D5\u05E2 <strong>Claude Code</strong> \u05DE\u05D1\u05D9\u05EA Anthropic',
 'footer-guide-meta':'\u05DE\u05D3\u05E8\u05D9\u05DA \u05D4\u05D3\u05E8\u05DB\u05D4 Microsoft 365 Copilot \u05DC\u05D7\u05D5\u05E7\u05E8\u05D9\u05DD \u05D0\u05E7\u05D3\u05DE\u05D9\u05D9\u05DD | \u05DE\u05E8\u05E5 2026',
 'footer-legal-title':'\u05D4\u05E6\u05D4\u05E8\u05EA \u05D0\u05D7\u05E8\u05D9\u05D5\u05EA \u05DE\u05E9\u05E4\u05D8\u05D9\u05EA',
-'footer-legal-1':'\u05DE\u05D3\u05E8\u05D9\u05DA \u05D6\u05D4 \u05D4\u05D5\u05D0 \u05DE\u05E9\u05D0\u05D1 \u05D7\u05D9\u05E0\u05D5\u05DB\u05D9 \u05E2\u05E6\u05DE\u05D0\u05D9 \u05E9\u05E0\u05D5\u05E6\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05EA\u05D5\u05DD \u05D4\u05D2\u05DC\u05E2\u05D3\u05D9. \u05D0\u05D9\u05E0\u05D5 \u05E7\u05E9\u05D5\u05E8, \u05DE\u05D0\u05D5\u05E9\u05E8, \u05DE\u05DE\u05D5\u05DE\u05DF, \u05D0\u05D5 \u05DE\u05D7\u05D5\u05D1\u05E8 \u05D1\u05DB\u05DC \u05D3\u05E8\u05DA \u05E8\u05E9\u05DE\u05D9\u05EA \u05DC\u05D7\u05D1\u05E8\u05EA Microsoft Corporation. \u05DB\u05DC \u05E9\u05DE\u05D5\u05EA \u05D4\u05DE\u05D5\u05E6\u05E8\u05D9\u05DD, \u05D4\u05DC\u05D5\u05D2\u05D5\u05D0\u05D9\u05DD \u05D5\u05E1\u05D9\u05DE\u05E0\u05D9 \u05D4\u05DE\u05E1\u05D7\u05E8 \u05D4\u05E7\u05E9\u05D5\u05E8\u05D9\u05DD \u05D4\u05DD \u05E8\u05DB\u05D5\u05E9\u05D4 \u05E9\u05DC Microsoft.',
+'footer-legal-1':'\u05DE\u05D3\u05E8\u05D9\u05DA \u05D6\u05D4 \u05D4\u05D5\u05D0 \u05DE\u05E9\u05D0\u05D1 \u05D7\u05D9\u05E0\u05D5\u05DB\u05D9 \u05E2\u05E6\u05DE\u05D0\u05D9 \u05E9\u05E0\u05D5\u05E6\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 <a href="https://linktr.ee/TomHagiladi" target="_blank" rel="noopener noreferrer" class="tom-link">\u05EA\u05D5\u05DD \u05D4\u05D2\u05DC\u05E2\u05D3\u05D9</a>. \u05D0\u05D9\u05E0\u05D5 \u05E7\u05E9\u05D5\u05E8, \u05DE\u05D0\u05D5\u05E9\u05E8, \u05DE\u05DE\u05D5\u05DE\u05DF, \u05D0\u05D5 \u05DE\u05D7\u05D5\u05D1\u05E8 \u05D1\u05DB\u05DC \u05D3\u05E8\u05DA \u05E8\u05E9\u05DE\u05D9\u05EA \u05DC\u05D7\u05D1\u05E8\u05EA Microsoft Corporation. \u05DB\u05DC \u05E9\u05DE\u05D5\u05EA \u05D4\u05DE\u05D5\u05E6\u05E8\u05D9\u05DD, \u05D4\u05DC\u05D5\u05D2\u05D5\u05D0\u05D9\u05DD \u05D5\u05E1\u05D9\u05DE\u05E0\u05D9 \u05D4\u05DE\u05E1\u05D7\u05E8 \u05D4\u05E7\u05E9\u05D5\u05E8\u05D9\u05DD \u05D4\u05DD \u05E8\u05DB\u05D5\u05E9\u05D4 \u05E9\u05DC Microsoft.',
 'footer-legal-2':'\u05D4\u05EA\u05D5\u05DB\u05DF \u05DE\u05D1\u05D5\u05E1\u05E1 \u05E2\u05DC \u05D7\u05D5\u05DE\u05E8\u05D9\u05DD \u05E9\u05DC Microsoft \u05D4\u05D6\u05DE\u05D9\u05E0\u05D9\u05DD \u05DC\u05E6\u05D9\u05D1\u05D5\u05E8 \u05D5\u05DE\u05E1\u05D5\u05E4\u05E7 "\u05DB\u05DE\u05D5 \u05E9\u05D4\u05D5\u05D0" \u05DC\u05DE\u05D8\u05E8\u05D5\u05EA \u05D7\u05D9\u05E0\u05D5\u05DB\u05D9\u05D5\u05EA \u05D5\u05DE\u05D9\u05D3\u05E2\u05D9\u05D5\u05EA \u05D1\u05DC\u05D1\u05D3, \u05DC\u05DC\u05D0 \u05DB\u05DC \u05D0\u05D7\u05E8\u05D9\u05D5\u05EA.',
 'footer-legal-3':'\u05D4\u05E9\u05D9\u05DE\u05D5\u05E9 \u05D1-Microsoft 365 Copilot \u05D5\u05DB\u05DC \u05E4\u05E2\u05D5\u05DC\u05D4 \u05D4\u05E0\u05E0\u05E7\u05D8\u05EA \u05E2\u05DC \u05D1\u05E1\u05D9\u05E1 \u05DE\u05D9\u05D3\u05E2 \u05D6\u05D4 \u05D4\u05DD \u05D1\u05D0\u05D7\u05E8\u05D9\u05D5\u05EA \u05D4\u05DE\u05E9\u05EA\u05DE\u05E9 \u05D1\u05DC\u05D1\u05D3. \u05D4\u05DE\u05D7\u05D1\u05E8 \u05DC\u05D0 \u05D9\u05D9\u05E9\u05D0 \u05D1\u05D0\u05D7\u05E8\u05D9\u05D5\u05EA \u05DC\u05DB\u05DC \u05E0\u05D6\u05E7 \u05D9\u05E9\u05D9\u05E8, \u05E2\u05E7\u05D9\u05E3, \u05DE\u05E7\u05E8\u05D9, \u05EA\u05D5\u05E6\u05D0\u05EA\u05D9, \u05DE\u05D9\u05D5\u05D7\u05D3 \u05D0\u05D5 \u05DE\u05D5\u05E4\u05EA\u05D9.',
 'footer-legal-4':'\u05DE\u05D3\u05E8\u05D9\u05DA \u05D6\u05D4 \u05D0\u05D9\u05E0\u05D5 \u05DE\u05D4\u05D5\u05D5\u05D4 \u05D9\u05D9\u05E2\u05D5\u05E5 \u05DE\u05E7\u05E6\u05D5\u05E2\u05D9, \u05DE\u05E9\u05E4\u05D8\u05D9 \u05D0\u05D5 \u05D8\u05DB\u05E0\u05D9. \u05E2\u05DC \u05D4\u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD \u05DC\u05D4\u05EA\u05D9\u05D9\u05E2\u05E5 \u05E2\u05DD \u05D4\u05EA\u05D9\u05E2\u05D5\u05D3 \u05D4\u05E8\u05E9\u05DE\u05D9 \u05E9\u05DC Microsoft \u05D5\u05DE\u05E0\u05D4\u05DC\u05D9 \u05D4-IT \u05D1\u05D0\u05E8\u05D2\u05D5\u05E0\u05DD.',
